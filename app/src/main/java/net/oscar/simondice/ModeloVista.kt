@@ -1,9 +1,15 @@
 package net.oscar.simondice
 
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class ModeloVista : ViewModel() {
-    var secuenciaAdivinar: MutableStateFlow<List<Colores>> = MutableStateFlow(mutableListOf());
     var estadoActual = MutableStateFlow(Estados.INICIO)
+
+    fun incrementandoLista(color: Colores) {
+        if (Datos.secuenciaAdivinando.size<=Datos.secuenciaAdivinar.size) {
+            Datos.secuenciaAdivinando.add(color)
+        }
+    }
 }
