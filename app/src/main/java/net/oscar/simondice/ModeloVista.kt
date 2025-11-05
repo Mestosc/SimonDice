@@ -9,7 +9,7 @@ class ModeloVista : ViewModel() {
 
     fun incrementandoLista(color: Colores) {
         if (Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size) {
-            estadoActual.value = Estados.FINALIZANDO
+            estadoActual.value = Estados.FINALIZANDO // Hacemos que el estado sea Finalizado independientemente de si ganamos o perdemos
             return
         }
         if (Datos.secuenciaAdivinar.size<Datos.secuenciaAdivinando.size) {
