@@ -12,6 +12,12 @@ fun IU() {
 }
 
 @Composable
+fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
+    val start_activo = modeloVista.estadoActual.collectAsState().value.start_activo
+    Button(onClick = TODO()) { Text("Inciar") }
+}
+
+@Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
     Button(onClick = {modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
