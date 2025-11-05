@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class ModeloVista : ViewModel() {
     var secuenciaAdivinar: MutableStateFlow<List<Colores>> = MutableStateFlow(mutableListOf());
-
+    var estadoActual = MutableStateFlow(Estados.INICIO)
 }
