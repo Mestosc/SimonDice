@@ -1,5 +1,7 @@
 package net.oscar.simondice
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -7,8 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 
 @Composable
-fun IU() {
-
+fun IU(modeloVista: ModeloVista) {
+    Column {
+        Row {
+            BotonesNormales(modeloVista,Colores.ROJO)
+            BotonesNormales(modeloVista,Colores.VERDE)
+        }
+        Row {
+            BotonesNormales(modeloVista,Colores.AMARILLO)
+            BotonesNormales(modeloVista,Colores.AZUL)
+        }
+    }
 }
 
 @Composable
