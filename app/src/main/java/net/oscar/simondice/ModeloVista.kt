@@ -8,8 +8,10 @@ class ModeloVista : ViewModel() {
     var estadoActual = MutableStateFlow(Estados.INICIO)
 
     fun incrementandoLista(color: Colores) {
-        if (Datos.secuenciaAdivinando.size<=Datos.secuenciaAdivinar.size) {
-            Datos.secuenciaAdivinando.add(color)
+        if (Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size) {
+            estadoActual.value = Estados.FINALIZANDO
+            return
         }
+        Datos.secuenciaAdivinando.add(color)
     }
 }
