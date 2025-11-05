@@ -12,6 +12,8 @@ class ModeloVista : ViewModel() {
             estadoActual.value = Estados.FINALIZANDO
             return
         }
-        Datos.secuenciaAdivinando.add(color)
+        if (Datos.secuenciaAdivinar.size<Datos.secuenciaAdivinando.size) {
+            Datos.secuenciaAdivinando.add(color)
+        }
     }
 }
