@@ -14,7 +14,8 @@ enum class Colores(val color: Color, val txt: String) {
     ROJO(color = Color.Red, txt = "roxo"),
     AZUL(color = Color.Blue, txt = "azul"),
     VERDE(color = Color.Green, txt = "verde"),
-    AMARILLO(color = Color.Yellow, txt = "melo")
+    AMARILLO(color = Color.Yellow, txt = "melo"),
+    START(Color.Magenta, txt = "Start")
 }
 
 /**
@@ -22,8 +23,8 @@ enum class Colores(val color: Color, val txt: String) {
  * normales estan activados y el [start_activo] que indica si el inicio esta activo
  */
 enum class Estados(val boton_activo: Boolean, val start_activo: Boolean) {
-    INICIO(boton_activo = false, start_activo = false),
+    INICIO(boton_activo = false, start_activo = true),
     GENERANDO(boton_activo = false, start_activo = false),
     ADIVINAR(boton_activo = true, start_activo = false),
-    FINALIZANDO(boton_activo = false, start_activo = false)
+    FINALIZANDO(boton_activo = false, start_activo = true)
 }

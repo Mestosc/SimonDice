@@ -22,6 +22,8 @@ fun IU(modeloVista: ModeloVista) {
             BotonesNormales(modeloVista,Colores.AMARILLO)
             BotonesNormales(modeloVista,Colores.AZUL)
         }
+        CrearBotonStart(modeloVista,Colores.START)
+        MostrarTextoFinal(modeloVista)
     }
 }
 @Composable
@@ -30,10 +32,7 @@ fun MostrarTextoFinal(modeloVista: ModeloVista) {
     if (estado != Estados.FINALIZANDO) {
         return
     }
-    if (Datos.secuenciaAdivinando.size != Datos.secuenciaAdivinar.size) {
-        return
-    }
-    if (Datos.secuenciaAdivinando.containsAll(Datos.secuenciaAdivinar)) {
+    if (Datos.secuenciaAdivinando==Datos.secuenciaAdivinar) {
         Text("Enorabuena has acertado la combinacion")
     } else {
         Text("Que mal has fallado la secuencia")
@@ -42,7 +41,7 @@ fun MostrarTextoFinal(modeloVista: ModeloVista) {
 @Composable
 fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
     val start_activo = modeloVista.estadoActual.collectAsState().value.start_activo
-    Button(onClick = {modeloVista.iniciarJuego()}) { Text("Inciar") }
+    Button(onClick = {modeloVista.iniciarJuego()}, enabled = start_activo) { Text(color.txt) }
 }
 
 @Composable
