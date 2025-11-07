@@ -16,4 +16,7 @@ class ModeloVista : ViewModel() {
             Datos.secuenciaAdivinando.add(color)
         }
     }
+    fun iniciarJuego() {
+        estadoActual.value = Estados.ADIVINAR
+    }
 }
