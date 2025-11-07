@@ -9,18 +9,16 @@ class ModeloVista : ViewModel() {
     var estadoActual = MutableStateFlow(Estados.INICIO)
     private val TAGLOG = "ModeloDebug"
     fun incrementandoLista(color: Colores) {
-        if (Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size) {
-            Log.d(TAGLOG,"Cambiando estado a finalizado")
-            estadoActual.value = Estados.FINALIZANDO
-            return
-        }
         if (Datos.secuenciaAdivinando.size<Datos.secuenciaAdivinar.size) {
             Log.d(TAGLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
-            if (Datos.secuenciaAdivinando==Datos.secuenciaAdivinar) {
-                estadoActual.value = Estados.FINALIZANDO
-            }
         }
+        if (finalizoJuego()) {
+            estadoActual.value = Estados.FINALIZANDO
+        }
+    }
+    fun finalizoJuego(): Boolean {
+        return Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size
     }
     fun iniciarJuego() {
         estadoActual.value = Estados.GENERANDO
