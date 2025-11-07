@@ -17,6 +17,9 @@ class ModeloVista : ViewModel() {
         }
     }
     fun iniciarJuego() {
+        if (!Datos.secuenciaAdivinando.isEmpty()) {
+            Datos.secuenciaAdivinando.removeAll(Datos.secuenciaAdivinando)
+        }
         estadoActual.value = Estados.ADIVINAR
     }
 }

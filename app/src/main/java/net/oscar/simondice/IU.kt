@@ -24,11 +24,25 @@ fun IU(modeloVista: ModeloVista) {
         }
     }
 }
-
+@Composable
+fun MostrarTextoFinal(modeloVista: ModeloVista) {
+    val estado = modeloVista.estadoActual.collectAsState().value
+    if (estado != Estados.FINALIZANDO) {
+        return
+    }
+    if (Datos.secuenciaAdivinando.size != Datos.secuenciaAdivinar.size) {
+        return
+    }
+    if (Datos.secuenciaAdivinando.containsAll(Datos.secuenciaAdivinar)) {
+        Text("Enorabuena has acertado la combinacion")
+    } else {
+        Text("Que mal has fallado la secuencia")
+    }
+}
 @Composable
 fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
     val start_activo = modeloVista.estadoActual.collectAsState().value.start_activo
-    Button(onClick = TODO()) { Text("Inciar") }
+    Button(onClick = {modeloVista.iniciarJuego()}) { Text("Inciar") }
 }
 
 @Composable
