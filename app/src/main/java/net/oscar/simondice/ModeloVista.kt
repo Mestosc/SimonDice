@@ -1,22 +1,29 @@
 package net.oscar.simondice
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class ModeloVista : ViewModel() {
     var estadoActual = MutableStateFlow(Estados.INICIO)
-    private val TAGLOG = "ModeloDebug"
+    private val tagLOG = "ModeloDebug"
+
+    /**
+     * Añado un nuevo [color] a la lista de la secuencia que yo estoy poniendo
+     */
     fun incrementandoLista(color: Colores) {
         if (Datos.secuenciaAdivinando.size<Datos.secuenciaAdivinar.size) {
-            Log.d(TAGLOG,"Añadiendo color ${color.color} a la secuencia")
+            Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
         }
         if (finalizoJuego()) {
             estadoActual.value = Estados.FINALIZANDO
         }
     }
+
+    /**
+     * Comprueba si el juego a finalizado
+     */
     fun finalizoJuego(): Boolean {
         return Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size
     }
@@ -25,7 +32,7 @@ class ModeloVista : ViewModel() {
         if (!Datos.secuenciaAdivinando.isEmpty()) {
             Datos.secuenciaAdivinando.removeAll(Datos.secuenciaAdivinando)
         }
-        Log.d(TAGLOG,"Cambiando estado a Adivinar")
+        Log.d(tagLOG,"Cambiando estado a Adivinar")
         estadoActual.value = Estados.ADIVINAR
     }
 }
