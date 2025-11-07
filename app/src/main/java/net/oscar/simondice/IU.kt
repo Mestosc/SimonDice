@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 
 /**
-Documentando
+Funcion principal de interfaz recibe el [modeloVista]
 **/
 @Composable
 fun IU(modeloVista: ModeloVista) {
