@@ -47,14 +47,8 @@ fun MostrarRonda(modeloVista: ModeloVista) {
 @Composable
 fun MostrarTextoFinal(modeloVista: ModeloVista) {
     val estado = modeloVista.estadoActual.collectAsState().value
-    if (estado != Estados.FINALIZANDO) {
-        return
-    }
-    if (Datos.secuenciaAdivinando==Datos.secuenciaAdivinar) {
-        Text("Enorabuena has acertado la combinacion")
-    } else {
-        Text("Que mal has fallado la secuencia")
-    }
+    val fase_anterior = modeloVista.fase.collectAsState().value-1
+    Text(text = "Juego Terminado Nivel alcanzado $fase_anterior")
 }
 @Composable
 fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
