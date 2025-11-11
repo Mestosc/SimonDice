@@ -25,24 +25,36 @@ class ModeloVista : ViewModel() {
             }
         }
     }
+
+    /**
+     * Determina si puedo pasar a la siguiente ronda esto, viendo si la lista de numeros que compongo
+     * al poner la secuencia es igual a la secuencia que hay replicar
+     */
     fun pasarRonda(): Boolean {
         return Datos.secuenciaAdivinar == Datos.secuenciaAdivinando
     }
     /**
-     * Comprueba si el juego a finalizado
+     * Comprueba si el juego a finalizado, pasandole el [color] a ver
+     * si corresponde con su homonimo en la secuencia que quiero adivinar
      */
     fun finalizoJuego(color: Colores): Boolean {
         val posicionActual = Datos.secuenciaAdivinando.size
         return Datos.secuenciaAdivinar[posicionActual] != color
     }
+
+    /**
+     * Inicia una ronda pasandole el [numRonda] que representa en que ronda estoy
+     */
     fun inicarRonda(numRonda: Int) {
         estadoActual.value = Estados.GENERANDO
         if (!Datos.secuenciaAdivinando.isEmpty()) {
-            Datos.secuenciaAdivinando.clear()
+            Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
+            ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
+            este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
         }
         Datos.secuenciaAdivinar.forEach { v -> Log.d(tagLOG,v.txt) }
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        estadoActual.value = Estados.ADIVINAR
+        estadoActual.value = Estados.JUGANDO
         fase.value = numRonda
     }
     fun iniciarJuego() {

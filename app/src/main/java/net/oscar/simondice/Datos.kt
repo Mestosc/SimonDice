@@ -31,6 +31,6 @@ enum class Colores(val color: Color, val txt: String) {
 enum class Estados(val boton_activo: Boolean, val start_activo: Boolean) {
     INICIO(boton_activo = false, start_activo = true),
     GENERANDO(boton_activo = false, start_activo = false),
-    ADIVINAR(boton_activo = true, start_activo = false),
+    JUGANDO(boton_activo = true, start_activo = false),
     FINALIZANDO(boton_activo = false, start_activo = true)
 }
