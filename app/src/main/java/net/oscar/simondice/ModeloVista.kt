@@ -16,7 +16,7 @@ class ModeloVista : ViewModel() {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
         }
-        if (finalizoJuego()) {
+        if (finalizoJuego(color)) {
             estadoActual.value = Estados.FINALIZANDO
         }
     }
@@ -24,8 +24,8 @@ class ModeloVista : ViewModel() {
     /**
      * Comprueba si el juego a finalizado
      */
-    fun finalizoJuego(): Boolean {
-        return Datos.secuenciaAdivinando.size==Datos.secuenciaAdivinar.size
+    fun finalizoJuego(color: Colores): Boolean {
+        return !Datos.secuenciaAdivinar.contains(color)
     }
     fun iniciarJuego() {
         estadoActual.value = Estados.GENERANDO
