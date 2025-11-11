@@ -33,6 +33,7 @@ class ModeloVista : ViewModel() {
             Datos.secuenciaAdivinando.removeAll(Datos.secuenciaAdivinando)
         }
         Log.d(tagLOG,"Cambiando estado a Adivinar")
+        Datos.secuenciaAdivinar.forEach { v -> Log.d(tagLOG,v.txt) }
         estadoActual.value = Estados.ADIVINAR
     }
 }
