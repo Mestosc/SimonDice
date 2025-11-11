@@ -67,16 +67,9 @@ fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
-    val context = LocalContext.current
-    val mMediaPlayer = MediaPlayer.create(context,obtenerAudio(color))
     Button(onClick = {
 
         modeloVista.incrementandoLista(color) }, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
         Text(color.txt)
-    }
-}
-fun obtenerAudio(color: Colores): R.raw {
-    when (color) {
-
     }
 }
