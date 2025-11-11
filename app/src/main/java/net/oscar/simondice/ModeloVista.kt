@@ -17,35 +17,33 @@ class ModeloVista : ViewModel() {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
             estadoActual.value = Estados.FINALIZANDO
         } else {
-            if (Datos.secuenciaAdivinando.size<Datos.secuenciaAdivinar.size) { // Si sigue por no haber hecho toda la secuencia y no fallar
-                Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
-                Datos.secuenciaAdivinando.add(color)
-            } else if (pasarRonda()) { // Si la lista de numeros a adivnar y la lista adivinando es igual
-                inicarRonda(fase.value+1)
-            } else { // En caso contrario seguimos
+            Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
+            Datos.secuenciaAdivinando.add(color)
+            if (pasarRonda()) { // Si la lista de numeros a adivnar y la lista adivinando es igual
                 puntuacion.value += 1
-                estadoActual.value = Estados.ADIVINAR
+                inicarRonda(fase.value+1)
             }
         }
     }
     fun pasarRonda(): Boolean {
-        return Datos.secuenciaAdivinar.containsAll(Datos.secuenciaAdivinando) && Datos.secuenciaAdivinar.size == Datos.secuenciaAdivinando.size
+        return Datos.secuenciaAdivinar == Datos.secuenciaAdivinando
     }
     /**
      * Comprueba si el juego a finalizado
      */
     fun finalizoJuego(color: Colores): Boolean {
-        return !Datos.secuenciaAdivinar.contains(color)
+        val posicionActual = Datos.secuenciaAdivinando.size
+        return Datos.secuenciaAdivinar[posicionActual] != color
     }
-    fun inicarRonda(num_ronda: Int) {
+    fun inicarRonda(numRonda: Int) {
         estadoActual.value = Estados.GENERANDO
         if (!Datos.secuenciaAdivinando.isEmpty()) {
-            Datos.secuenciaAdivinando.removeAll(Datos.secuenciaAdivinando)
+            Datos.secuenciaAdivinando.clear()
         }
         Datos.secuenciaAdivinar.forEach { v -> Log.d(tagLOG,v.txt) }
         Log.d(tagLOG,"Cambiando estado a Adivinar")
         estadoActual.value = Estados.ADIVINAR
-        fase.value = num_ronda
+        fase.value = numRonda
     }
     fun iniciarJuego() {
         inicarRonda(1)

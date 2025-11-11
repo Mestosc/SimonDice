@@ -23,7 +23,25 @@ fun IU(modeloVista: ModeloVista) {
             BotonesNormales(modeloVista,Colores.AZUL)
         }
         CrearBotonStart(modeloVista,Colores.START)
+        MostrarRonda(modeloVista)
+        MostrarPuntuacion(modeloVista)
         MostrarTextoFinal(modeloVista)
+    }
+}
+@Composable
+fun MostrarPuntuacion(modeloVista: ModeloVista) {
+    val puntuacion = modeloVista.puntuacion.collectAsState().value
+    val estado = modeloVista.estadoActual.collectAsState().value
+    if (estado!=Estados.FINALIZANDO) {
+        Text(text = "Puntuacion: $puntuacion")
+    }
+}
+@Composable
+fun MostrarRonda(modeloVista: ModeloVista) {
+    val fase = modeloVista.fase.collectAsState().value
+    val estado = modeloVista.estadoActual.collectAsState().value
+    if (estado!=Estados.FINALIZANDO) {
+        Text(text = "Ronda: $fase")
     }
 }
 @Composable
