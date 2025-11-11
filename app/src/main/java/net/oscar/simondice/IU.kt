@@ -48,7 +48,9 @@ fun MostrarRonda(modeloVista: ModeloVista) {
 fun MostrarTextoFinal(modeloVista: ModeloVista) {
     val estado = modeloVista.estadoActual.collectAsState().value
     val fase_anterior = modeloVista.fase.collectAsState().value-1
-    Text(text = "Juego Terminado Nivel alcanzado $fase_anterior")
+    if (estado==Estados.FINALIZANDO) {
+        Text(text = "Juego Terminado Nivel alcanzado $fase_anterior")
+    }
 }
 @Composable
 fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
