@@ -67,7 +67,7 @@ fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
-    Button(onClick = {
+    Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         modeloVista.incrementandoLista(color) }, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
         Text(color.txt)
     }
