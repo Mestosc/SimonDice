@@ -68,7 +68,6 @@ fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
     Button(onClick = {
-
         modeloVista.incrementandoLista(color) }, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
         Text(color.txt)
     }
