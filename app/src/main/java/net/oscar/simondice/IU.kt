@@ -28,6 +28,7 @@ fun IU(modeloVista: ModeloVista) {
             BotonesNormales(modeloVista,Colores.AMARILLO)
             BotonesNormales(modeloVista,Colores.AZUL)
         }
+        MostrarEstado(modeloVista)
         CrearBotonStart(modeloVista,Colores.START)
         MostrarRonda(modeloVista)
         MostrarPuntuacion(modeloVista)
@@ -56,6 +57,22 @@ fun MostrarTextoFinal(modeloVista: ModeloVista) {
     val fase_anterior = modeloVista.fase.collectAsState().value-1
     if (estado==Estados.FINALIZANDO) {
         Text(text = "Juego Terminado Nivel alcanzado $fase_anterior")
+    }
+}
+@Composable
+fun MostrarEstado(modeloVista: ModeloVista) {
+    val estado = modeloVista.estadoActual.collectAsState().value
+    when (estado) {
+        Estados.GENERANDO -> {
+            Text(text = "Simon Muestra")
+        }
+        Estados.FINALIZANDO -> {
+            Text(text = "Has perdido")
+        }
+        Estados.ADIVINAR -> {
+            Text("Tu turno")
+        }
+        Estados.INICIO -> {}
     }
 }
 @Composable
