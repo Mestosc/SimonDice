@@ -5,12 +5,7 @@ import androidx.compose.ui.graphics.Color
 object Datos {
     val secuenciaAdivinar = listOf(Colores.ROJO,Colores.AZUL,Colores.AMARILLO,Colores.VERDE)
     val secuenciaAdivinando = mutableListOf<Colores>()
-    val coloresNotas: Map<Colores, String> = mapOf(
-        Colores.VERDE to "Do",    // Verde
-        Colores.ROJO to "Mi",    // Rojo
-        Colores.AZUL to "Sol",   // Azul
-        Colores.AMARILLO to "Do'"    // Amarillo
-    )
+
 }
 
 /**
