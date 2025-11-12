@@ -1,5 +1,6 @@
 package net.oscar.simondice
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
@@ -7,6 +8,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -77,8 +79,11 @@ fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
 
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
+    val context = LocalContext.current
+    val mediaPlayer = MediaPlayer.create(context, R.raw.sonido_p)
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
+        mediaPlayer.start()
         modeloVista.incrementandoLista(color) }, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
         Text(color.txt)
     }
