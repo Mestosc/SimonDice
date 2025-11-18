@@ -3,12 +3,19 @@ package net.oscar.simondice
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlin.reflect.KClass
 
 class ModeloVista : ViewModel() {
-    var estadoActual = MutableStateFlow(Estados.INICIO)
+    var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
     var fase = MutableStateFlow(0)
     private val tagLOG = "ModeloDebug"
+
+    fun <T:Estados> changeTo(newState: KClass<T>) {
+        estadoActual.value.on_end()
+        estadoActual.value = newState.constructors.first().call(this)
+        estadoActual.value.on_enter()
+    }
 
     /**
      * Añado un nuevo [color] a la lista de la secuencia que yo estoy poniendo

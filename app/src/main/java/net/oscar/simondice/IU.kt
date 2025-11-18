@@ -5,20 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
-import net.oscar.simondice.ui.theme.SimonDiceTheme
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -48,7 +42,7 @@ fun IU(modeloVista: ModeloVista) {
 fun MostrarPuntuacion(modeloVista: ModeloVista) {
     val puntuacion = modeloVista.puntuacion.collectAsState().value
     val estado = modeloVista.estadoActual.collectAsState().value
-    if (estado!=Estados.FINALIZANDO) {
+    if (estado !is Estados.FINALIZANDO) {
         Text(text = "Puntuacion: $puntuacion")
     }
 }
@@ -57,32 +51,32 @@ fun MostrarPuntuacion(modeloVista: ModeloVista) {
 fun MostrarRonda(modeloVista: ModeloVista) {
     val fase = modeloVista.fase.collectAsState().value
     val estado = modeloVista.estadoActual.collectAsState().value
-    if (estado!=Estados.FINALIZANDO) {
+    if (estado !is Estados.FINALIZANDO) {
         Text(text = "Ronda: $fase")
     }
 }
 @Composable
 fun MostrarTextoFinal(modeloVista: ModeloVista) {
     val estado = modeloVista.estadoActual.collectAsState().value
-    val fase_anterior = modeloVista.fase.collectAsState().value-1
-    if (estado==Estados.FINALIZANDO) {
-        Text(text = "Juego Terminado Nivel alcanzado $fase_anterior")
+    val faseAnterior = modeloVista.fase.collectAsState().value-1
+    if (estado is Estados.FINALIZANDO) {
+        Text(text = "Juego Terminado Nivel alcanzado $faseAnterior")
     }
 }
 @Composable
 fun MostrarEstado(modeloVista: ModeloVista) {
     val estado = modeloVista.estadoActual.collectAsState().value
     when (estado) {
-        Estados.GENERANDO -> {
+        is Estados.GENERANDO -> {
             Text(text = "Simon Muestra")
         }
-        Estados.FINALIZANDO -> {
+        is Estados.FINALIZANDO -> {
             Text(text = "Has perdido")
         }
-        Estados.JUGANDO -> {
+        is Estados.JUGANDO -> {
             Text("Tu turno")
         }
-        Estados.INICIO -> {}
+        is Estados.INICIO -> {}
     }
 }
 @Composable
@@ -97,11 +91,10 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = MediaPlayer.create(context, R.raw.sonido_p)
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
-    val estado = modeloVista.estadoActual
     
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
-        modeloVista.incrementandoLista(color) }, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
+        modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
         Text(color.txt)
     }
 }
