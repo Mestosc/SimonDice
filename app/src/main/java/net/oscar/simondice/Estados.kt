@@ -49,6 +49,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         override fun on_enter() {
             boton_activo = false
             start_activo = true
+            modeloVista.puntuacion.value = 0
         }
 
         override fun on_end() {
