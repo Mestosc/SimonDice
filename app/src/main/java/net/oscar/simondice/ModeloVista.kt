@@ -3,19 +3,38 @@ package net.oscar.simondice
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlin.reflect.KClass
 
 class ModeloVista : ViewModel() {
-    var estadoActual = MutableStateFlow(Estados.INICIO)
+    var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
     var fase = MutableStateFlow(0)
     private val tagLOG = "ModeloDebug"
+
+    init {
+        startState()
+    }
+
+    /**
+     * Cambiar a un nuevo estado
+     * @param newState Referencia al nuevo estado al que quiero ir
+     */
+    fun <T:Estados> changeTo(newState: KClass<T>) {
+        Log.d(tagLOG,"Finalizando Estado")
+        estadoActual.value.on_end()
+        estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
+        startState()
+    }
+    fun startState() {
+        estadoActual.value.on_enter()
+    }
 
     /**
      * Añado un nuevo [color] a la lista de la secuencia que yo estoy poniendo
      */
     fun incrementandoLista(color: Colores) {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
-            estadoActual.value = Estados.FINALIZANDO
+            changeTo(Estados.FINALIZANDO::class)
         } else {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
@@ -46,15 +65,9 @@ class ModeloVista : ViewModel() {
      * Inicia una ronda pasandole el [numRonda] que representa en que ronda estoy
      */
     fun inicarRonda(numRonda: Int) {
-        estadoActual.value = Estados.GENERANDO
-        if (!Datos.secuenciaAdivinando.isEmpty()) {
-            Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
-            ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
-            este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
-        }
-        Datos.secuenciaAdivinar.forEach { v -> Log.d(tagLOG,v.txt) }
+        changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        estadoActual.value = Estados.JUGANDO
+        changeTo(Estados.JUGANDO::class)
         fase.value = numRonda
     }
     fun iniciarJuego() {
