@@ -1,5 +1,6 @@
 package net.oscar.simondice
 
+import android.content.Context
 import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalContext
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -85,11 +87,20 @@ fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
     Button(onClick = {modeloVista.iniciarJuego()}, enabled = start_activo
     ) { Text(color.txt) }
 }
-
+fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
+    return when (enumColores) {
+        Colores.ROJO -> MediaPlayer.create(context, R.raw.sonido_p)
+        Colores.AZUL -> MediaPlayer.create(context,R.raw.sonido)
+        Colores.VERDE -> MediaPlayer.create(context,R.raw.sonido_p)
+        Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido)
+        Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido)
+        Colores.START -> null
+    }
+    }
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
-    val mediaPlayer = MediaPlayer.create(context, R.raw.sonido_p)
+    val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
     val activo = modeloVista.estadoActual.collectAsState().value.boton_activo
     
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
