@@ -22,7 +22,7 @@ class ModeloVista : ViewModel() {
      */
     fun incrementandoLista(color: Colores) {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
-            estadoActual.value = Estados.FINALIZANDO
+            changeTo(Estados.FINALIZANDO::class)
         } else {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
@@ -53,15 +53,9 @@ class ModeloVista : ViewModel() {
      * Inicia una ronda pasandole el [numRonda] que representa en que ronda estoy
      */
     fun inicarRonda(numRonda: Int) {
-        estadoActual.value = Estados.GENERANDO
-        if (!Datos.secuenciaAdivinando.isEmpty()) {
-            Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
-            ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
-            este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
-        }
-        Datos.secuenciaAdivinar.forEach { v -> Log.d(tagLOG,v.txt) }
+        changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        estadoActual.value = Estados.JUGANDO
+        changeTo(Estados.JUGANDO::class)
         fase.value = numRonda
     }
     fun iniciarJuego() {
