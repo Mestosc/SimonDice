@@ -11,9 +11,16 @@ class ModeloVista : ViewModel() {
     var fase = MutableStateFlow(0)
     private val tagLOG = "ModeloDebug"
 
+    init {
+        startState()
+    }
+
     fun <T:Estados> changeTo(newState: KClass<T>) {
         estadoActual.value.on_end()
         estadoActual.value = newState.constructors.first().call(this)
+        startState()
+    }
+    fun startState() {
         estadoActual.value.on_enter()
     }
 
