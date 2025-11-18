@@ -93,7 +93,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
         Colores.AZUL -> MediaPlayer.create(context,R.raw.sonido)
         Colores.VERDE -> MediaPlayer.create(context,R.raw.sonido_p)
         Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido)
-        Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido)
+        Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido_p)
         Colores.START -> null
     }
     }
