@@ -23,12 +23,6 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Iniciando estado $this")
             boton_activo = false
             start_activo = false
-            if (!Datos.secuenciaAdivinando.isEmpty()) {
-                Log.d(tagLOG,"Limpiando secuencia existente")
-                Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
-            ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
-            este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
-            }
             Datos.secuenciaAdivinar.forEach { v -> Log.d("Color",v.txt) }
         }
 
@@ -49,6 +43,12 @@ sealed class Estados(val modeloVista: ModeloVista) {
         override fun onEnter() {
             boton_activo = false
             start_activo = true
+            if (!Datos.secuenciaAdivinando.isEmpty()) {
+                Log.d(tagLOG,"Limpiando secuencia existente")
+                Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
+            ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
+            este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
+            }
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
 
