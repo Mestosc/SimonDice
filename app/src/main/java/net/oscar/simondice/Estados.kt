@@ -40,7 +40,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         }
     }
     class FINALIZANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
-        override fun onEnter() {
+        override fun onEnter() { // Funcion que se ejecuta al entrar en el estado de Finalizacion
             boton_activo = false
             start_activo = true
             if (!Datos.secuenciaAdivinando.isEmpty()) {
