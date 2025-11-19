@@ -40,8 +40,10 @@ sealed class Estados(val modeloVista: ModeloVista) {
         override fun onEnter(vararg info: Any) {
             botonActivo = true
             startActivo = false
-            val numRonda = info.getOrNull(0) as? Int ?: 1
-            modeloVista.fase.value = numRonda
+            if (info.isNotEmpty()) {
+                val numRonda = info.getOrNull(0) as? Int ?: 1
+                modeloVista.fase.value = numRonda
+            }
         }
 
         override fun onEnd() {
