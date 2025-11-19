@@ -43,7 +43,7 @@ fun IU(modeloVista: ModeloVista) {
 fun MostrarPuntuacion(modeloVista: ModeloVista) {
     val puntuacion = modeloVista.puntuacion.collectAsState().value
     val estado = modeloVista.estadoActual.collectAsState().value
-    if (estado !is Estados.FINALIZANDO) {
+    if (estado !is Estados.PERDIENDO) {
         Text(text = "Puntuacion: $puntuacion")
     }
 }
@@ -52,7 +52,7 @@ fun MostrarPuntuacion(modeloVista: ModeloVista) {
 fun MostrarRonda(modeloVista: ModeloVista) {
     val fase = modeloVista.fase.collectAsState().value
     val estado = modeloVista.estadoActual.collectAsState().value
-    if (estado !is Estados.FINALIZANDO) {
+    if (estado !is Estados.PERDIENDO) {
         Text(text = "Ronda: $fase")
     }
 }
@@ -60,7 +60,7 @@ fun MostrarRonda(modeloVista: ModeloVista) {
 fun MostrarTextoFinal(modeloVista: ModeloVista) {
     val estado = modeloVista.estadoActual.collectAsState().value
     val faseAnterior = modeloVista.fase.collectAsState().value-1
-    if (estado is Estados.FINALIZANDO) {
+    if (estado is Estados.PERDIENDO) {
         Text(text = "Juego Terminado Nivel alcanzado $faseAnterior")
     }
 }
@@ -71,7 +71,7 @@ fun MostrarEstado(modeloVista: ModeloVista) {
         is Estados.GENERANDO -> {
             Text(text = "Simon Muestra")
         }
-        is Estados.FINALIZANDO -> {
+        is Estados.PERDIENDO -> {
             Text(text = "Has perdido")
         }
         is Estados.JUGANDO -> {

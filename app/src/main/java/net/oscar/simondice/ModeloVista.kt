@@ -19,16 +19,14 @@ class ModeloVista : ViewModel() {
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
      */
-    fun <T:Estados> changeState(newState: KClass<T>) {
-        if (newState != estadoActual.value::class) {
-            Log.d(tagLOG,"Finalizando Estado")
-            estadoActual.value.onEnd()
-            estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto, aqui solo necesitamos que posea el viewModel así que da igual lo hago así porque no quiero escribir nombreEstado(this) cada vez que hago el cambio de estado
-            startState()
-        }
+    fun <T:Estados> changeTo(newState: KClass<T>,vararg info: Any) {
+        Log.d(tagLOG,"Finalizando Estado")
+        estadoActual.value.onEnd()
+        estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
+        startState(*info)
     }
-    private fun startState() {
-        estadoActual.value.onEnter()
+    fun startState(vararg info: Any) {
+        estadoActual.value.onEnter(*info)
     }
 
     /**
@@ -36,7 +34,7 @@ class ModeloVista : ViewModel() {
      */
     fun incrementandoLista(color: Colores) {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
-            changeState(Estados.FINALIZANDO::class)
+            changeTo(Estados.PERDIENDO::class)
         } else {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
@@ -67,10 +65,9 @@ class ModeloVista : ViewModel() {
      * Inicia una ronda pasandole el [numRonda] que representa en que ronda estoy
      */
     fun inicarRonda(numRonda: Int) {
-        changeState(Estados.GENERANDO::class)
+        changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeState(Estados.JUGANDO::class)
-        fase.value = numRonda
+        changeTo(Estados.JUGANDO::class,numRonda)
     }
     fun iniciarJuego() {
         inicarRonda(1)
