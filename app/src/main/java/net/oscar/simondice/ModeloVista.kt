@@ -19,14 +19,14 @@ class ModeloVista : ViewModel() {
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
      */
-    fun <T:Estados> changeTo(newState: KClass<T>) {
+    fun <T:Estados> changeTo(newState: KClass<T>,vararg info: Any) {
         Log.d(tagLOG,"Finalizando Estado")
         estadoActual.value.on_end()
         estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
-        startState()
+        startState(info)
     }
-    fun startState() {
-        estadoActual.value.on_enter()
+    fun startState(vararg info: Any) {
+        estadoActual.value.on_enter(info)
     }
 
     /**
@@ -67,8 +67,7 @@ class ModeloVista : ViewModel() {
     fun inicarRonda(numRonda: Int) {
         changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeTo(Estados.JUGANDO::class)
-        fase.value = numRonda
+        changeTo(Estados.JUGANDO::class,numRonda)
     }
     fun iniciarJuego() {
         inicarRonda(1)
