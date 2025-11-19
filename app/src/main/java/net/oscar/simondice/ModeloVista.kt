@@ -19,7 +19,7 @@ class ModeloVista : ViewModel() {
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
      */
-    fun <T:Estados> changeTo(newState: KClass<T>) {
+    fun <T:Estados> changeState(newState: KClass<T>) {
         if (newState != estadoActual.value::class) {
             Log.d(tagLOG,"Finalizando Estado")
             estadoActual.value.onEnd()
@@ -36,7 +36,7 @@ class ModeloVista : ViewModel() {
      */
     fun incrementandoLista(color: Colores) {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
-            changeTo(Estados.FINALIZANDO::class)
+            changeState(Estados.FINALIZANDO::class)
         } else {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
@@ -67,9 +67,9 @@ class ModeloVista : ViewModel() {
      * Inicia una ronda pasandole el [numRonda] que representa en que ronda estoy
      */
     fun inicarRonda(numRonda: Int) {
-        changeTo(Estados.GENERANDO::class)
+        changeState(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeTo(Estados.JUGANDO::class)
+        changeState(Estados.JUGANDO::class)
         fase.value = numRonda
     }
     fun iniciarJuego() {
