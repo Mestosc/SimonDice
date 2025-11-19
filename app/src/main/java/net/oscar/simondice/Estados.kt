@@ -4,8 +4,8 @@ import android.util.Log
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
-    var boton_activo = false
-    var start_activo = true
+    var botonActivo = false
+    var startActivo = true
     abstract fun onEnter()
     abstract fun onEnd()
     override fun toString(): String = this::class.simpleName ?: "Estado"
@@ -28,8 +28,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
             ronda la secuencia que componemos al pulsar los botones de la interfaz en este caso
             este vacia para que al intentar adivnar la lista en cada ronda no genere problemas*/
             }
-            boton_activo = false
-            start_activo = false
+            botonActivo = false
+            startActivo = false
             Datos.secuenciaAdivinar.forEach { v -> Log.d("Color",v.txt) }
         }
 
@@ -40,8 +40,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() {
             Log.d(tagLOG,"Iniciando estado $this")
-            boton_activo = true
-            start_activo = false
+            botonActivo = true
+            startActivo = false
         }
 
         override fun onEnd() {
@@ -50,8 +50,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
     class FINALIZANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() { // Funcion que se ejecuta al entrar en el estado de Finalizacion
             Log.d(tagLOG,"Inciando estado $this")
-            boton_activo = false
-            start_activo = true
+            botonActivo = false
+            startActivo = true
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
 
