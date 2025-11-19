@@ -20,10 +20,12 @@ class ModeloVista : ViewModel() {
      * @param newState Referencia al nuevo estado al que quiero ir
      */
     fun <T:Estados> changeTo(newState: KClass<T>) {
-        Log.d(tagLOG,"Finalizando Estado")
-        estadoActual.value.onEnd()
-        estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
-        startState()
+        if (newState != estadoActual.value::class) {
+            Log.d(tagLOG,"Finalizando Estado")
+            estadoActual.value.onEnd()
+            estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
+            startState()
+        }
     }
     fun startState() {
         estadoActual.value.onEnter()
