@@ -27,7 +27,7 @@ class ModeloVista : ViewModel() {
             startState()
         }
     }
-    fun startState() {
+    private fun startState() {
         estadoActual.value.onEnter()
     }
 
