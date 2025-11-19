@@ -4,8 +4,8 @@ import android.util.Log
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
-    var boton_activo = false
-    var start_activo = true
+    var botonActivo = false
+    var startActivo = true
     abstract fun on_enter()
     abstract fun on_end()
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
@@ -21,8 +21,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
     class GENERANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun on_enter() {
             Log.d(tagLOG,"Iniciando estado Generando")
-            boton_activo = false
-            start_activo = false
+            botonActivo = false
+            startActivo = false
             if (!Datos.secuenciaAdivinando.isEmpty()) {
                 Log.d(tagLOG,"Limpiando secuencia existente")
                 Datos.secuenciaAdivinando.clear() /* Nos aseguramos de que en cada
@@ -38,8 +38,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
     }
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun on_enter() {
-            boton_activo = true
-            start_activo = false
+            botonActivo = true
+            startActivo = false
         }
 
         override fun on_end() {
@@ -47,8 +47,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
     }
     class FINALIZANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun on_enter() {
-            boton_activo = false
-            start_activo = true
+            botonActivo = false
+            startActivo = true
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
 
