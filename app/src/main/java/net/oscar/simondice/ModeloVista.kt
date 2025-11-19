@@ -23,7 +23,7 @@ class ModeloVista : ViewModel() {
         if (newState != estadoActual.value::class) {
             Log.d(tagLOG,"Finalizando Estado")
             estadoActual.value.onEnd()
-            estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
+            estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto, aqui solo necesitamos que posea el viewModel así que da igual lo hago así porque no quiero escribir nombreEstado(this) cada vez que hago el cambio de estado
             startState()
         }
     }
