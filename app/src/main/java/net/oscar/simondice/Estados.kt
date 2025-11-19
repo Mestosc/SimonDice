@@ -45,7 +45,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         override fun on_end() {
         }
     }
-    class FINALIZANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
+    class PERDIENDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun on_enter() {
             botonActivo = false
             startActivo = true

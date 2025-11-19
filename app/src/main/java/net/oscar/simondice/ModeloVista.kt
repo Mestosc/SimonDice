@@ -34,7 +34,7 @@ class ModeloVista : ViewModel() {
      */
     fun incrementandoLista(color: Colores) {
         if (finalizoJuego(color)) { // Si el juego no finalizo por fallar una parte de la secuencia
-            changeTo(Estados.FINALIZANDO::class)
+            changeTo(Estados.PERDIENDO::class)
         } else {
             Log.d(tagLOG,"Añadiendo color ${color.color} a la secuencia")
             Datos.secuenciaAdivinando.add(color)
