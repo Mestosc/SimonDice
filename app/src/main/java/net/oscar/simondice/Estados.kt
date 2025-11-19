@@ -8,6 +8,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
     var start_activo = true
     abstract fun onEnter()
     abstract fun onEnd()
+    override fun toString(): String = this::class.simpleName ?: "Estado"
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() {
             Log.d(tagLOG,"Inciando estado $this")
