@@ -10,7 +10,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
     abstract fun onEnd()
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter(vararg info: Any) {
-            Log.d(tagLOG,"Inciando estado INICIO")
+            Log.d(tagLOG,"Inciando estado $this")
         }
 
         override fun onEnd() {
@@ -20,7 +20,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
     }
     class GENERANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter(vararg info: Any) {
-            Log.d(tagLOG,"Iniciando estado Generando")
+            Log.d(tagLOG,"Iniciando estado $this")
             botonActivo = false
             startActivo = false
             if (!Datos.secuenciaAdivinando.isEmpty()) {
@@ -38,6 +38,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
     }
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter(vararg info: Any) {
+            Log.d(tagLOG,"Entrando en $this")
             botonActivo = true
             startActivo = false
             if (info.size==1 && info[0] is Int) {
@@ -51,6 +52,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
     }
     class PERDIENDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter(vararg info: Any) {
+            Log.d(tagLOG,"Entrando en $this")
             botonActivo = false
             startActivo = true
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
