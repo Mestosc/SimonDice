@@ -82,8 +82,8 @@ fun MostrarEstado(modeloVista: ModeloVista) {
 }
 @Composable
 fun CrearBotonStart(modeloVista: ModeloVista,color: Colores) {
-    val start_activo = modeloVista.estadoActual.collectAsState().value.startActivo
-    Button(onClick = {modeloVista.iniciarJuego()}, enabled = start_activo
+    val startActivo = modeloVista.estadoActual.collectAsState().value.startActivo
+    Button(onClick = {modeloVista.iniciarJuego()}, enabled = startActivo
     ) { Text(color.txt) }
 }
 fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
@@ -92,7 +92,6 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
         Colores.AZUL -> MediaPlayer.create(context,R.raw.sonido)
         Colores.VERDE -> MediaPlayer.create(context,R.raw.sonido_p)
         Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido)
-        Colores.AMARILLO -> MediaPlayer.create(context,R.raw.sonido_p)
         Colores.START -> null
     }
     }
