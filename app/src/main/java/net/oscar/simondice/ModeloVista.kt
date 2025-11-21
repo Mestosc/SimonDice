@@ -36,7 +36,7 @@ class ModeloVista : ViewModel() {
         estadoActual.value = newState
         startState(*info)
     }
-    fun startState(vararg info: Any) {
+    private fun startState(vararg info: Any) {
         estadoActual.value.onEnter(*info)
     }
 
