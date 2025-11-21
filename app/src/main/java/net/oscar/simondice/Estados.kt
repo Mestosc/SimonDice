@@ -15,7 +15,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         }
 
         override fun onEnd() {
-
+            Log.d(tagLOG,"Finalizando estado $this")
         }
 
     }
@@ -34,7 +34,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         }
 
         override fun onEnd() {
-
+            Log.d(tagLOG,"Finalizando Estado $this")
         }
     }
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
@@ -49,6 +49,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         }
 
         override fun onEnd() {
+            Log.d(tagLOG,"Finalizando estado $this")
         }
     }
     class PERDIENDO(modeloVista: ModeloVista) : Estados(modeloVista) {
@@ -60,6 +61,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
         }
 
         override fun onEnd() {
+            Log.d(tagLOG,"Finalizando estado $this")
         }
     }
 }

@@ -21,7 +21,6 @@ class ModeloVista : ViewModel() {
      * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
     fun <T:Estados> changeTo(newState: KClass<T>,vararg info: Any) {
-        Log.d(tagLOG,"Finalizando Estado ${estadoActual.value}")
         estadoActual.value.onEnd()
         estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
         startState(*info)
@@ -33,7 +32,6 @@ class ModeloVista : ViewModel() {
      * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
     fun <T:Estados> changeTo(newState: T,vararg info: Any) {
-        Log.d(tagLOG,"Finalizando Estado ${estadoActual.value}")
         estadoActual.value.onEnd()
         estadoActual.value = newState
         startState(*info)
