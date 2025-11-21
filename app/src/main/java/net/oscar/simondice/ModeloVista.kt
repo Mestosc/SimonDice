@@ -25,6 +25,17 @@ class ModeloVista : ViewModel() {
         estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
         startState(*info)
     }
+
+    /**
+     * Cambiar a un nuevo estado
+     * @param newState El estado al que quieres pasar con todos sus parametros
+     */
+    fun <T:Estados> changeTo(newState: T,vararg info: Any) {
+        Log.d(tagLOG,"Finalizando Estado ${estadoActual.value}")
+        estadoActual.value.onEnd()
+        estadoActual.value = newState
+        startState(*info)
+    }
     fun startState(vararg info: Any) {
         estadoActual.value.onEnter(*info)
     }
