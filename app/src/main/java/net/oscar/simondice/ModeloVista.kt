@@ -18,6 +18,7 @@ class ModeloVista : ViewModel() {
     /**
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
+     * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
     fun <T:Estados> changeTo(newState: KClass<T>,vararg info: Any) {
         Log.d(tagLOG,"Finalizando Estado ${estadoActual.value}")
@@ -29,6 +30,7 @@ class ModeloVista : ViewModel() {
     /**
      * Cambiar a un nuevo estado
      * @param newState El estado al que quieres pasar con todos sus parametros
+     * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
     fun <T:Estados> changeTo(newState: T,vararg info: Any) {
         Log.d(tagLOG,"Finalizando Estado ${estadoActual.value}")
