@@ -78,7 +78,8 @@ class ModeloVista : ViewModel() {
     fun inicarRonda(numRonda: Int) {
         changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeTo(Estados.JUGANDO::class,numRonda)
+        changeTo(Estados.JUGANDO::class)
+        (estadoActual.value as Estados.JUGANDO).iniciarRonda(numRonda)
     }
     fun iniciarJuego() {
         inicarRonda(1)

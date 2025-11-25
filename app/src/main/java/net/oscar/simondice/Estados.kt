@@ -32,7 +32,6 @@ sealed class Estados(val modeloVista: ModeloVista) {
             }
             Datos.secuenciaAdivinar.forEach { v -> Log.d("Color",v.txt) }
         }
-
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando Estado $this")
         }
@@ -42,12 +41,10 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = true
             startActivo = false
-            if (info.size==1 && info[0] is Int) {
-                val numRonda = info[0] as Int
-                modeloVista.fase.value = numRonda
-            }
         }
-
+        fun iniciarRonda(numRonda: Int) {
+            modeloVista.fase.value = numRonda
+        }
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando estado $this")
         }
@@ -59,7 +56,6 @@ sealed class Estados(val modeloVista: ModeloVista) {
             startActivo = true
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
-
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando estado $this")
         }
