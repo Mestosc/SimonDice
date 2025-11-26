@@ -11,9 +11,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -21,20 +23,20 @@ Funcion principal de interfaz recibe el [modeloVista]
 @Composable
 fun IU(modeloVista: ModeloVista) {
     Surface(modifier = Modifier.padding(start = 10.dp, top = 30.dp)) {
-    Column {
-        Row {
-            BotonesNormales(modeloVista,Colores.ROJO)
-            BotonesNormales(modeloVista,Colores.VERDE)
-        }
-        Row {
-            BotonesNormales(modeloVista,Colores.AMARILLO)
-            BotonesNormales(modeloVista,Colores.AZUL)
-        }
-        CrearBotonStart(modeloVista,Colores.START)
-        MostrarEstado(modeloVista)
-        MostrarPuntuacion(modeloVista)
-        MostrarTextoFinal(modeloVista)
-        MostrarRonda(modeloVista)
+        Column {
+            Row {
+                BotonesNormales(modeloVista,Colores.ROJO)
+                BotonesNormales(modeloVista,Colores.VERDE)
+            }
+            Row {
+                BotonesNormales(modeloVista,Colores.AMARILLO)
+                BotonesNormales(modeloVista,Colores.AZUL)
+            }
+            CrearBotonStart(modeloVista,Colores.START)
+            MostrarEstado(modeloVista)
+            MostrarPuntuacion(modeloVista)
+            MostrarTextoFinal(modeloVista)
+            MostrarRonda(modeloVista)
 
         }
     }
@@ -78,6 +80,8 @@ fun MostrarEstado(modeloVista: ModeloVista) {
             Text("Tu turno")
         }
         is Estados.INICIO -> {}
+        is Estados.GANANDO -> {}
+        is Estados.MOSTRANDO_SECUENCIA -> {}
     }
 }
 @Composable
@@ -100,10 +104,23 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
     val activo = modeloVista.estadoActual.collectAsState().value.botonActivo
-    
+    val botonIluminado by modeloVista.botonIluminado.collectAsState()
+
+    // NUEVO: Decidir si este botón debe estar brillante u oscuro
+    val colorActual = if (botonIluminado == color) {
+        color.color // Brillante
+    } else {
+        color.colorOscuro // Oscuro
+    }
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
-        modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
+        modeloVista.botonIluminado.value = color
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch { // Esta corrutina es para que cuando pulse el boton
+            kotlinx.coroutines.delay(300)
+            modeloVista.botonIluminado.value = null
+        }
+
+        modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(colorActual)) {
         Text(color.txt)
     }
 }

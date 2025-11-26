@@ -35,7 +35,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    val modeloVista = ModeloVista()
     SimonDiceTheme {
-        Greeting("Android")
+        IU(modeloVista)
     }
 }

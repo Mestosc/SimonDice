@@ -6,11 +6,11 @@ sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
     var botonActivo = false
     var startActivo = true
-    abstract fun onEnter(vararg info: Any)
+    abstract fun onEnter()
     abstract fun onEnd()
     override fun toString(): String = this::class.simpleName ?: "Estado"
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
-        override fun onEnter(vararg info: Any) {
+        override fun onEnter() {
             Log.d(tagLOG,"Inciando estado $this")
         }
 
@@ -20,7 +20,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
 
     }
     class GENERANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
-        override fun onEnter(vararg info: Any) {
+        override fun onEnter() {
             Log.d(tagLOG,"Iniciando estado $this")
             botonActivo = false
             startActivo = false
@@ -32,36 +32,51 @@ sealed class Estados(val modeloVista: ModeloVista) {
             }
             Datos.secuenciaAdivinar.forEach { v -> Log.d("Color",v.txt) }
         }
-
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando Estado $this")
         }
     }
+    class MOSTRANDO_SECUENCIA(modeloVista: ModeloVista) : Estados(modeloVista) {
+        override fun onEnter() {
+
+        }
+
+        override fun onEnd() {
+
+        }
+
+    }
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
-        override fun onEnter(vararg info: Any) {
+        override fun onEnter() {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = true
             startActivo = false
-            if (info.size==1 && info[0] is Int) {
-                val numRonda = info[0] as Int
-                modeloVista.fase.value = numRonda
-            }
         }
-
+        fun iniciarRonda(numRonda: Int) {
+            modeloVista.fase.value = numRonda
+        }
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando estado $this")
         }
     }
     class PERDIENDO(modeloVista: ModeloVista) : Estados(modeloVista) {
-        override fun onEnter(vararg info: Any) {
+        override fun onEnter() {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = false
             startActivo = true
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
-
         override fun onEnd() {
             Log.d(tagLOG,"Finalizando estado $this")
+        }
+    }
+    class GANANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
+        override fun onEnter() {
+
+        }
+
+        override fun onEnd() {
+
         }
     }
 }

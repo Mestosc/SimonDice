@@ -2,13 +2,17 @@ package net.oscar.simondice
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class ModeloVista : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
     var fase = MutableStateFlow(0)
+    var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
 
     init {
@@ -18,26 +22,26 @@ class ModeloVista : ViewModel() {
     /**
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
-     * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
-    fun <T:Estados> changeTo(newState: KClass<T>,vararg info: Any) {
+    fun <T:Estados> changeTo(newState: KClass<T>): Estados {
         estadoActual.value.onEnd()
         estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
-        startState(*info)
+        startState()
+        return estadoActual.value
     }
 
     /**
      * Cambiar a un nuevo estado
      * @param newState El estado al que quieres pasar con todos sus parametros
-     * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
-    fun <T:Estados> changeTo(newState: T,vararg info: Any) {
+    fun <T:Estados> changeTo(newState: T): Estados {
         estadoActual.value.onEnd()
         estadoActual.value = newState
-        startState(*info)
+        startState()
+        return estadoActual.value
     }
-    private fun startState(vararg info: Any) {
-        estadoActual.value.onEnter(*info)
+    private fun startState() {
+        estadoActual.value.onEnter()
     }
 
     /**
@@ -78,7 +82,19 @@ class ModeloVista : ViewModel() {
     fun inicarRonda(numRonda: Int) {
         changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeTo(Estados.JUGANDO::class,numRonda)
+        changeTo(Estados.JUGANDO::class)
+        if (estadoActual.value is Estados.JUGANDO) (estadoActual.value as Estados.JUGANDO).iniciarRonda(numRonda)
+    }
+    private suspend fun mostrarSecuencia() {
+        delay(500)
+
+        Datos.secuenciaAdivinar.forEach { color ->
+            botonIluminado.value = color
+            delay(600)
+
+            botonIluminado.value = null
+            delay(300)
+        }
     }
     fun iniciarJuego() {
         inicarRonda(1)
