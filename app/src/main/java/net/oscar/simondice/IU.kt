@@ -2,19 +2,31 @@ package net.oscar.simondice
 
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -22,20 +34,20 @@ Funcion principal de interfaz recibe el [modeloVista]
 @Composable
 fun IU(modeloVista: ModeloVista) {
     Surface(modifier = Modifier.padding(start = 10.dp, top = 30.dp)) {
-    Column {
-        Row {
-            BotonesNormales(modeloVista,Colores.ROJO,)
-            BotonesNormales(modeloVista,Colores.VERDE)
-        }
-        Row {
-            BotonesNormales(modeloVista,Colores.AMARILLO)
-            BotonesNormales(modeloVista,Colores.AZUL)
-        }
-        CrearBotonStart(modeloVista,Colores.START)
-        MostrarEstado(modeloVista)
-        MostrarPuntuacion(modeloVista)
-        MostrarTextoFinal(modeloVista)
-        MostrarRonda(modeloVista)
+        Column {
+            Row {
+                BotonesNormales(modeloVista,Colores.ROJO)
+                BotonesNormales(modeloVista,Colores.VERDE)
+            }
+            Row {
+                BotonesNormales(modeloVista,Colores.AMARILLO)
+                BotonesNormales(modeloVista,Colores.AZUL)
+            }
+            CrearBotonStart(modeloVista,Colores.START)
+            MostrarEstado(modeloVista)
+            MostrarPuntuacion(modeloVista)
+            MostrarTextoFinal(modeloVista)
+            MostrarRonda(modeloVista)
 
         }
     }
@@ -80,6 +92,7 @@ fun MostrarEstado(modeloVista: ModeloVista) {
         }
         is Estados.INICIO -> {}
         is Estados.GANANDO -> {}
+        is Estados.MOSTRANDO_SECUENCIA -> {}
     }
 }
 @Composable
@@ -102,7 +115,7 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
     val activo = modeloVista.estadoActual.collectAsState().value.botonActivo
-    val botonIluminado = modeloVista.botonIluminado.collectAsState().value
+    val botonIluminado by modeloVista.botonIluminado.collectAsState()
 
     // NUEVO: Decidir si este botón debe estar brillante u oscuro
     val colorActual = if (botonIluminado == color) {
@@ -113,6 +126,11 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
         modeloVista.botonIluminado.value = color
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
+            kotlinx.coroutines.delay(300)
+            modeloVista.botonIluminado.value = null
+        }
+
         modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(colorActual)) {
         Text(color.txt)
     }

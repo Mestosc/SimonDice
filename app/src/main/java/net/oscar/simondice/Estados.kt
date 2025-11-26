@@ -36,6 +36,16 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Finalizando Estado $this")
         }
     }
+    class MOSTRANDO_SECUENCIA(modeloVista: ModeloVista) : Estados(modeloVista) {
+        override fun onEnter() {
+
+        }
+
+        override fun onEnd() {
+
+        }
+
+    }
     class JUGANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() {
             Log.d(tagLOG,"Entrando en $this")
