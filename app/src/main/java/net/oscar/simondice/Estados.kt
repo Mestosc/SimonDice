@@ -1,8 +1,6 @@
 package net.oscar.simondice
 
 import android.util.Log
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
