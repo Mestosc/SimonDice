@@ -11,10 +11,10 @@ object Datos {
 /**
  * Colores que vamos a usar en el juego [color] y el nombre [txt] que va a mostrar
  */
-enum class Colores(val color: Color, val txt: String) {
-    ROJO(color = Color.Red, txt = "roxo"),
-    AZUL(color = Color.Blue, txt = "azul"),
-    VERDE(color = Color.Green, txt = "verde"),
-    AMARILLO(color = Color.Yellow, txt = "melo"),
-    START(Color.Magenta, txt = "Start")
+enum class Colores(val color: Color, val colorOscuro: Color, val txt: String) {
+    ROJO(Color.Red, Color(0xFF8B0000), "Rojo"),
+    VERDE(Color.Green, Color(0xFF006400), "Verde"),
+    AMARILLO(Color.Yellow, Color(0xFF9B870C), "Amarillo"),
+    AZUL(Color.Blue, Color(0xFF00008B), "Azul"),
+    START(Color.Gray, Color.Gray, "START")
 }

@@ -2,6 +2,8 @@ package net.oscar.simondice
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.reflect.KClass
 
@@ -9,6 +11,7 @@ class ModeloVista : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
     var fase = MutableStateFlow(0)
+    var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
 
     init {
@@ -79,7 +82,25 @@ class ModeloVista : ViewModel() {
         changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
         changeTo(Estados.JUGANDO(this))
+        viewModelScope.launch {
+            // Esperar a que termine de mostrar la secuencia
+            mostrarSecuencia()
+
+            // Cuando termine, cambiar a JUGANDO
+            changeTo(Estados.JUGANDO(this@ModeloVista))
+        }
         if (estadoActual.value is Estados.JUGANDO) (estadoActual.value as Estados.JUGANDO).iniciarRonda(numRonda)
+    }
+    private suspend fun mostrarSecuencia() {
+        delay(500)
+
+        Datos.secuenciaAdivinar.forEach { color ->
+            botonIluminado.value = color
+            delay(600)
+
+            botonIluminado.value = null
+            delay(300)
+        }
     }
     fun iniciarJuego() {
         inicarRonda(1)
