@@ -24,7 +24,7 @@ fun IU(modeloVista: ModeloVista) {
     Surface(modifier = Modifier.padding(start = 10.dp, top = 30.dp)) {
     Column {
         Row {
-            BotonesNormales(modeloVista,Colores.ROJO)
+            BotonesNormales(modeloVista,Colores.ROJO,)
             BotonesNormales(modeloVista,Colores.VERDE)
         }
         Row {
@@ -101,7 +101,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
-    var activo = modeloVista.estadoActual.collectAsState().value.botonActivo
+    val activo = modeloVista.estadoActual.collectAsState().value.botonActivo
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
         modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
