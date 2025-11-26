@@ -60,4 +60,13 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Finalizando estado $this")
         }
     }
+    class GANANDO(modeloVista: ModeloVista) : Estados(modeloVista) {
+        override fun onEnter() {
+
+        }
+
+        override fun onEnd() {
+
+        }
+    }
 }

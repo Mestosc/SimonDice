@@ -20,10 +20,11 @@ class ModeloVista : ViewModel() {
      * @param newState Referencia al nuevo estado al que quiero ir
      * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
-    fun <T:Estados> changeTo(newState: KClass<T>) {
+    fun <T:Estados> changeTo(newState: KClass<T>): Estados {
         estadoActual.value.onEnd()
         estadoActual.value = newState.constructors.first().call(this) // OJO call no respeta valores por defecto
         startState()
+        return estadoActual.value;
     }
 
     /**
@@ -31,10 +32,11 @@ class ModeloVista : ViewModel() {
      * @param newState El estado al que quieres pasar con todos sus parametros
      * @param info Parametros opcionales para proveer informacion durante la entrada al estado
      */
-    fun <T:Estados> changeTo(newState: T) {
+    fun <T:Estados> changeTo(newState: T): Estados {
         estadoActual.value.onEnd()
         estadoActual.value = newState
         startState()
+        return estadoActual.value;
     }
     private fun startState() {
         estadoActual.value.onEnter()

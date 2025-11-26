@@ -10,6 +10,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -78,6 +79,7 @@ fun MostrarEstado(modeloVista: ModeloVista) {
             Text("Tu turno")
         }
         is Estados.INICIO -> {}
+        is Estados.GANANDO -> {}
     }
 }
 @Composable
@@ -99,8 +101,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
-    val activo = modeloVista.estadoActual.collectAsState().value.botonActivo
-    
+    var activo = modeloVista.estadoActual.collectAsState().value.botonActivo
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
         modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
