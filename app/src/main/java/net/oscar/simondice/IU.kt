@@ -102,9 +102,18 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
     val mediaPlayer = obtenerMediaPlayer(context,color) ?: MediaPlayer.create(context,R.raw.no_sound)
     val activo = modeloVista.estadoActual.collectAsState().value.botonActivo
+    val botonIluminado = modeloVista.botonIluminado.collectAsState().value
+
+    // NUEVO: Decidir si este botón debe estar brillante u oscuro
+    val colorActual = if (botonIluminado == color) {
+        color.color // Brillante
+    } else {
+        color.colorOscuro // Oscuro
+    }
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
-        modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(color.color)) {
+        modeloVista.botonIluminado.value = color
+        modeloVista.incrementandoLista(color)}, enabled = activo, colors = ButtonDefaults.buttonColors(colorActual)) {
         Text(color.txt)
     }
 }
