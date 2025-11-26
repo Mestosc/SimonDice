@@ -15,5 +15,7 @@ este estado es bastante general ya que por lo general no se suele relacionar con
 
 ## Capturas
 ![Inciando la aplicacion](img.png)
+
 ![Despues de hacer secuencia una vez](img_1.png)
+
 ![Perdiendo](img_2.png)
