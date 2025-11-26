@@ -82,15 +82,16 @@ class ModeloVista : ViewModel() {
     fun inicarRonda(numRonda: Int) {
         changeTo(Estados.GENERANDO::class)
         Log.d(tagLOG,"Cambiando estado a Adivinar")
-        changeTo(Estados.JUGANDO(this))
-        viewModelScope.launch {
+        val job = viewModelScope.launch {
             // Esperar a que termine de mostrar la secuencia
-            mostrarSecuencia()
-
-            // Cuando termine, cambiar a JUGANDO
-            changeTo(Estados.JUGANDO(this@ModeloVista))
+            if (estadoActual.value is Estados.GENERANDO) {
+                mostrarSecuencia()
+            }
         }
-        if (estadoActual.value is Estados.JUGANDO) (estadoActual.value as Estados.JUGANDO).iniciarRonda(numRonda)
+        job.invokeOnCompletion {
+            changeTo(Estados.JUGANDO(this))
+            if (estadoActual.value is Estados.JUGANDO) (estadoActual.value as Estados.JUGANDO).iniciarRonda(numRonda)
+        }
     }
     private suspend fun mostrarSecuencia() {
         delay(500)
