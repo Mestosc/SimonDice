@@ -1,6 +1,7 @@
 package net.oscar.simondice
 
 import android.util.Log
+import androidx.compose.ui.graphics.Color
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
@@ -123,7 +124,9 @@ class ModeloVistaTest {
 
         // El usuario acierta el último color necesario
         viewModel.incrementandoLista(Colores.ROJO)
-
+        viewModel.incrementandoLista(Colores.AZUL)
+        viewModel.incrementandoLista(Colores.AMARILLO)
+        viewModel.incrementandoLista(Colores.VERDE)
         // Verificamos:
         // 1. Puntuación subió
         assertEquals(puntuacionInicial + 1, viewModel.puntuacion.value)
@@ -136,7 +139,7 @@ class ModeloVistaTest {
     @Test
     fun `pasarRonda devuelve true si las listas son identicas`() {
         //Datos.secuenciaAdivinar.apply { clear(); add(Colores.AZUL); add(Colores.ROJO) }
-        Datos.secuenciaAdivinando.apply { clear(); add(Colores.AZUL); add(Colores.ROJO) }
+        Datos.secuenciaAdivinando.apply { clear(); add(Colores.ROJO) ; add(Colores.AZUL); add(Colores.AMARILLO) ; add(Colores.VERDE) }
 
         assertTrue(viewModel.pasarRonda())
     }
