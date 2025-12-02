@@ -7,7 +7,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import net.oscar.simondice.recordJuegoDataSystem.RecordDataManagment
-import net.oscar.simondice.recordJuegoDataSystem.RecordDataStoreHandler
 import kotlin.reflect.KClass
 
 class ModeloVista : ViewModel() {

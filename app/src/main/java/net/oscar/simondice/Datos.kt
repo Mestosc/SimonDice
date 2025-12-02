@@ -7,7 +7,6 @@ data class PuntuacionMasAlta(val marcaTiempo: LocalTime, val record: Int)
 object Datos {
     val secuenciaAdivinar = listOf(Colores.ROJO,Colores.AZUL,Colores.AMARILLO,Colores.VERDE)
     val secuenciaAdivinando = mutableListOf<Colores>()
-
 }
 
 /**
