@@ -34,6 +34,7 @@ fun IU(modeloVista: ModeloVista) {
                 BotonesNormales(modeloVista, Colores.AZUL)
             }
             CrearBotonStart(modeloVista, Colores.START)
+            MostrarRecord(modeloVista)
             MostrarEstado(modeloVista)
             MostrarPuntuacion(modeloVista)
             MostrarTextoFinal(modeloVista)
@@ -100,6 +101,11 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
         Colores.START -> null
     }
     }
+@Composable
+fun MostrarRecord(modeloVista: ModeloVista) {
+    val record by modeloVista.record.collectAsState()
+    Text(text = record.toString())
+}
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
