@@ -5,11 +5,4 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.Date
 
-object PuntuacionMasAlta {
-    var puntuacionMasAlta: Int = 0
-    lateinit var marcaTiempo: LocalDateTime
-
-    override fun toString(): String {
-        return "$marcaTiempo -- $puntuacionMasAlta"
-    }
-}
+data class PuntuacionMasAlta(val puntuacionMasAlta: Int,val marcaTiempo: LocalDateTime)
