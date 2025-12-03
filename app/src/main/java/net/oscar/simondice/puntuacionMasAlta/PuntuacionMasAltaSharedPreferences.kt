@@ -11,12 +11,15 @@ import java.time.format.DateTimeFormatter
 
 class PuntuacionMasAltaSharedPreferences(val application: Application) : PuntuacionMasAltaHandler {
     private val preferencesName = "Records"
-    private val KEY_RECORD = "Record";
-    override fun obtenerRecord(): PuntuacionMasAlta {
+    private val KEY_RECORD = "Record"; // Solo puede almacenar un Record
+    override fun obtenerRecord(key: String): PuntuacionMasAlta {
         val preferences = application.getSharedPreferences(preferencesName,Context.MODE_PRIVATE)
-        PuntuacionMasAlta.puntuacionMasAlta = preferences.getInt(KEY_RECORD,0)
-        PuntuacionMasAlta.marcaTiempo = LocalDateTime.parse(preferences.getString(KEY_RECORD,"03/12/2025 11"))
+        PuntuacionMasAlta.puntuacionMasAlta = preferences.getInt(key,0)
+        PuntuacionMasAlta.marcaTiempo = LocalDateTime.parse(preferences.getString(key,"03/12/2025 11"))
         return PuntuacionMasAlta
+    }
+    fun obtenerRecord(): PuntuacionMasAlta {
+        return obtenerRecord(KEY_RECORD)
     }
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
@@ -31,7 +34,7 @@ class PuntuacionMasAltaSharedPreferences(val application: Application) : Puntuac
 
     override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val preferences = application.getSharedPreferences(preferencesName,Context.MODE_PRIVATE)
-        preferences.edit { remove(KEY_RECORD) }
+        preferences?.edit { remove(KEY_RECORD) }
     }
 
 }
