@@ -28,9 +28,7 @@ class ModeloVista(application: Application) : ViewModel() {
         startState()
     }
     fun guardarRecord() {
-        PuntuacionMasAlta.puntuacionMasAlta = record.value.puntuacionMasAlta
-        PuntuacionMasAlta.marcaTiempo = LocalDateTime.now();
-        dataManagment.anadirRecord(PuntuacionMasAlta)
+        dataManagment.anadirRecord(record.value)
     }
     fun obtenerRecord(): PuntuacionMasAlta {
         return dataManagment.obtenerRecord();

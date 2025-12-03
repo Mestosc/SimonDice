@@ -2,6 +2,7 @@ package net.oscar.simondice
 
 import android.util.Log
 import net.oscar.simondice.Datos.Datos
+import java.time.LocalDateTime
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
@@ -67,6 +68,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
             startActivo = true
             if (modeloVista.puntuacion.value>modeloVista.obtenerRecord().puntuacionMasAlta) {
                 modeloVista.record.value.puntuacionMasAlta = modeloVista.puntuacion.value;
+                modeloVista.record.value.marcaTiempo = LocalDateTime.now();
+                modeloVista.guardarRecord()
             };
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
