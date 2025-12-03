@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val modeloVista = ModeloVista()
+        val modeloVista = ModeloVista(application)
         setContent {
             IU(modeloVista)
         }
