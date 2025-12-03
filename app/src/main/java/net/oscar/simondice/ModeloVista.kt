@@ -1,5 +1,6 @@
 package net.oscar.simondice
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -10,16 +11,17 @@ import net.oscar.simondice.Datos.Datos
 import net.oscar.simondice.Datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaDataStore
+import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaSharedPreferences
 import kotlin.reflect.KClass
 
-class ModeloVista : ViewModel() {
+class ModeloVista(application: Application) : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaDataStore()
-    val puntuacionMasAlta: MutableStateFlow<PuntuacionMasAlta> = MutableStateFlow(PuntuacionMasAlta)
+    val record = MutableStateFlow(0)
+    private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSharedPreferences(application)
 
     init {
         startState()

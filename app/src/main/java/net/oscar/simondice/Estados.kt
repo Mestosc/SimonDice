@@ -65,6 +65,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = false
             startActivo = true
+            if (modeloVista.puntuacion.value>modeloVista.record.value) modeloVista.record.value = modeloVista.puntuacion.value;
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
         override fun onEnd() {

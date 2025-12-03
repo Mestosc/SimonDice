@@ -5,6 +5,6 @@ import java.time.LocalTime
 import java.util.Date
 
 object PuntuacionMasAlta {
-    val puntuacionMasAlta: Int = 0
-    val marcaTiempo: Date = Date()
+    var puntuacionMasAlta: Int = 0
+    var marcaTiempo: Date = Date()
 }
