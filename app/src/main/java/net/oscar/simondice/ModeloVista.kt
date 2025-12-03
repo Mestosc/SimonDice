@@ -1,7 +1,6 @@
 package net.oscar.simondice
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
@@ -10,9 +9,11 @@ import net.oscar.simondice.Datos.Colores
 import net.oscar.simondice.Datos.Datos
 import net.oscar.simondice.Datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
-import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaDataStore
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaSharedPreferences
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.reflect.KClass
+
 
 class ModeloVista(application: Application) : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
@@ -26,7 +27,11 @@ class ModeloVista(application: Application) : ViewModel() {
     init {
         startState()
     }
-
+    fun guardarRecord() {
+        PuntuacionMasAlta.puntuacionMasAlta = record.value
+        PuntuacionMasAlta.marcaTiempo = LocalDateTime.now();
+        dataManagment.anadirRecord(PuntuacionMasAlta)
+    }
     /**
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir
