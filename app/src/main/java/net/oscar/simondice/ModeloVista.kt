@@ -32,10 +32,8 @@ class ModeloVista(application: Application) : ViewModel() {
         PuntuacionMasAlta.marcaTiempo = LocalDateTime.now();
         dataManagment.anadirRecord(PuntuacionMasAlta)
     }
-    fun obtenerRecord(): PuntuacionMasAlta {
-        if (dataManagment is PuntuacionMasAltaSharedPreferences) {
-            return dataManagment.obtenerRecord();
-        }
+    fun obtenerRecord():Puntu {
+        return dataManagment.obtenerRecord();
     }
     /**
      * Cambiar a un nuevo estado

@@ -7,7 +7,7 @@ import net.oscar.simondice.Datos.PuntuacionMasAlta
  */
 interface PuntuacionMasAltaHandler {
 
-    fun obtenerRecord(key: String): PuntuacionMasAlta;
+    fun obtenerRecord(key: String = "Record"): PuntuacionMasAlta;
     fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta);
     fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta);
 }
