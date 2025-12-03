@@ -66,7 +66,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
             botonActivo = false
             startActivo = true
             if (modeloVista.puntuacion.value>modeloVista.obtenerRecord().puntuacionMasAlta) {
-                modeloVista.record.value = modeloVista.puntuacion.value;
+                modeloVista.record.value.puntuacionMasAlta = modeloVista.puntuacion.value;
             };
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
