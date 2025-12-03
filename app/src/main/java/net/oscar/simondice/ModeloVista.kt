@@ -21,7 +21,7 @@ class ModeloVista(application: Application) : ViewModel() {
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    val record = MutableStateFlow(PuntuacionMasAlta)
+    val record = MutableStateFlow(PuntuacionMasAlta())
     private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSharedPreferences(application)
 
     init {

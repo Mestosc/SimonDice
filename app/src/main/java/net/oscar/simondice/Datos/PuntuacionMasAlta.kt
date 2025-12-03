@@ -5,4 +5,4 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.Date
 
-data class PuntuacionMasAlta(val puntuacionMasAlta: Int,val marcaTiempo: LocalDateTime)
+data class PuntuacionMasAlta(val puntuacionMasAlta: Int = 0,val marcaTiempo: LocalDateTime = LocalDateTime.parse("03/12/2025 11"))
