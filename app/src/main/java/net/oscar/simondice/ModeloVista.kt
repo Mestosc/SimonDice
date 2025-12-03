@@ -1,12 +1,15 @@
 package net.oscar.simondice
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import net.oscar.simondice.recordJuegoDataSystem.RecordDataManagment
+import net.oscar.simondice.Datos.Colores
+import net.oscar.simondice.Datos.Datos
+import net.oscar.simondice.Datos.PuntuacionMasAlta
+import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
+import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaDataStore
 import kotlin.reflect.KClass
 
 class ModeloVista : ViewModel() {
@@ -15,7 +18,8 @@ class ModeloVista : ViewModel() {
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    private val dataManagment: RecordDataManagment = RecordDataStoreHandler()
+    private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaDataStore()
+    val puntuacionMasAlta: MutableStateFlow<PuntuacionMasAlta> = MutableStateFlow(PuntuacionMasAlta)
 
     init {
         startState()

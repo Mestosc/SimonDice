@@ -1,6 +1,7 @@
 package net.oscar.simondice
 
 import android.util.Log
+import net.oscar.simondice.Datos.Datos
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"

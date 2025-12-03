@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import net.oscar.simondice.Datos.Colores
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -25,14 +26,14 @@ fun IU(modeloVista: ModeloVista) {
     Surface(modifier = Modifier.padding(start = 10.dp, top = 30.dp)) {
         Column {
             Row {
-                BotonesNormales(modeloVista,Colores.ROJO)
-                BotonesNormales(modeloVista,Colores.VERDE)
+                BotonesNormales(modeloVista, Colores.ROJO)
+                BotonesNormales(modeloVista, Colores.VERDE)
             }
             Row {
-                BotonesNormales(modeloVista,Colores.AMARILLO)
-                BotonesNormales(modeloVista,Colores.AZUL)
+                BotonesNormales(modeloVista, Colores.AMARILLO)
+                BotonesNormales(modeloVista, Colores.AZUL)
             }
-            CrearBotonStart(modeloVista,Colores.START)
+            CrearBotonStart(modeloVista, Colores.START)
             MostrarEstado(modeloVista)
             MostrarPuntuacion(modeloVista)
             MostrarTextoFinal(modeloVista)
