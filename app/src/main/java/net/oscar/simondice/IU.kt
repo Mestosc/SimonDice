@@ -104,7 +104,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
 @Composable
 fun MostrarRecord(modeloVista: ModeloVista) {
     val record by modeloVista.record.collectAsState()
-    Text(text = record.toString())
+    Text(text = "${record.marcaTiempo} -- ${record.puntuacionMasAlta}")
 }
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
