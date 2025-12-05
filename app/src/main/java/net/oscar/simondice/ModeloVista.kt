@@ -22,7 +22,7 @@ class ModeloVista(application: Application) : ViewModel() {
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
     val record = MutableStateFlow(PuntuacionMasAlta())
-    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH")
+    private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH")
     private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSharedPreferences(application,formatter)
 
     init {
