@@ -67,7 +67,8 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = false
             startActivo = true
-            if (modeloVista.puntuacion.value>modeloVista.obtenerRecord().puntuacionMasAlta) {
+            Log.d(tagLOG,"${modeloVista.record.value}")
+            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
                 modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
                 modeloVista.guardarRecord()
             };

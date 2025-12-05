@@ -12,12 +12,13 @@ Este proyecto es una implementación del juego Simon Dice, donde los jugadores d
 stateDiagram
     [*] --> Inicio
     Inicio --> Generando : Inicia juego
-    Generando --> Jugando : Muestra secuencia
+    Generando --> Mostrando_Secuencia : Prepara secuencia
+    Mostrando_Secuencia --> Jugando : Muestra secuencia
     Jugando --> Jugando : Acierta color / Pasa ronda
     Jugando --> Perdiendo : Falla color
     Perdiendo --> Inicio : Reiniciar
-    Jugando --> Finalizando : Secuencia completada (posiblemente una victoria o fin de juego)
-    Finalizando --> Inicio : Reiniciar
+    Jugando --> Ganando : Secuencia completada (si existe un estado de victoria)
+    Ganando --> Inicio : Reiniciar
 ```
 
 ## 🚀 Características
@@ -39,7 +40,7 @@ El proyecto sigue la arquitectura **MVVM (Modelo-Vista-VistaModelo)**, lo que ga
 
 *   **Jetpack Compose**: Se eligió para crear una interfaz de usuario declarativa, moderna y fácil de mantener.
 *   **StateFlow**: Para una comunicación reactiva y eficiente entre el `ModeloVista` y la Vista, asegurando que la interfaz de usuario siempre refleje el estado actual del juego.
-*   **Clases Selladas**: En `Estados.kt`, se utilizan para gestionar de forma segura y clara los diferentes estados del juego (Inicio, Jugando, Finalizando), evitando errores y haciendo el código más robusto.
+*   **Clases Selladas**: En `Estados.kt`, se utilizan para gestionar de forma segura y clara los diferentes estados del juego (Inicio, Generando, Mostrando_Secuencia, Jugando, Perdiendo, Ganando), evitando errores y haciendo el código más robusto.
 *   **SharedPreferences**: Se utiliza para persistir la puntuación más alta de forma asíncrona y eficiente.
 
 ## 🛠️ Tecnologías Utilizadas

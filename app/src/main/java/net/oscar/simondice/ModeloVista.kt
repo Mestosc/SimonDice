@@ -20,9 +20,9 @@ class ModeloVista(application: Application) : ViewModel() {
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    val record = MutableStateFlow(PuntuacionMasAlta())
     private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH")
     private val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSharedPreferences(application,formatter)
+    val record = MutableStateFlow(dataManagment.obtenerRecord())
 
     init {
         startState()
@@ -30,8 +30,8 @@ class ModeloVista(application: Application) : ViewModel() {
     fun guardarRecord() {
         dataManagment.anadirRecord(record.value)
     }
-    fun obtenerRecord(): PuntuacionMasAlta {
-        return dataManagment.obtenerRecord();
+    fun obtenerRecord() {
+        record.value = dataManagment.obtenerRecord();
     }
     /**
      * Cambiar a un nuevo estado
