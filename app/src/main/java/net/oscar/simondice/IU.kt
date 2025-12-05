@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import net.oscar.simondice.Datos.Colores
+import net.oscar.simondice.datos.Colores
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]

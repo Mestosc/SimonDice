@@ -1,7 +1,6 @@
 package net.oscar.simondice.puntuacionMasAlta
 
-import net.oscar.simondice.Datos.PuntuacionMasAlta
-import java.time.format.DateTimeFormatter
+import net.oscar.simondice.datos.PuntuacionMasAlta
 
 /**
  * Guardar los records en el juego del simon dice

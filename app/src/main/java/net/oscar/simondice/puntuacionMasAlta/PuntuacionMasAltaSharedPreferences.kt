@@ -3,7 +3,7 @@ package net.oscar.simondice.puntuacionMasAlta
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
-import net.oscar.simondice.Datos.PuntuacionMasAlta
+import net.oscar.simondice.datos.PuntuacionMasAlta
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

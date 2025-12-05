@@ -1,8 +1,8 @@
 package net.oscar.simondice
 
 import android.util.Log
-import net.oscar.simondice.Datos.Datos
-import net.oscar.simondice.Datos.PuntuacionMasAlta
+import net.oscar.simondice.datos.Datos
+import net.oscar.simondice.datos.PuntuacionMasAlta
 import java.time.LocalDateTime
 
 sealed class Estados(val modeloVista: ModeloVista) {

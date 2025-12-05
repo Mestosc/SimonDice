@@ -5,12 +5,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import net.oscar.simondice.Datos.Colores
-import net.oscar.simondice.Datos.Datos
-import net.oscar.simondice.Datos.PuntuacionMasAlta
+import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.Datos
+import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaSharedPreferences
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.reflect.KClass
 

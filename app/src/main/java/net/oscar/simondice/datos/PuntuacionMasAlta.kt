@@ -1,10 +1,7 @@
-package net.oscar.simondice.Datos
+package net.oscar.simondice.datos
 
-import android.text.format.DateUtils
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 
 /**
  * Representa la puntuacion más alta
