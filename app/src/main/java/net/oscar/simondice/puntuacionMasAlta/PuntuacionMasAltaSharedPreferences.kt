@@ -3,11 +3,12 @@ package net.oscar.simondice.puntuacionMasAlta
 import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
+import net.oscar.simondice.datos.ConstantesVarias
 import net.oscar.simondice.datos.PuntuacionMasAlta
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class PuntuacionMasAltaSharedPreferences(val application: Application,val formatter: DateTimeFormatter) : PuntuacionMasAltaHandler {
+class PuntuacionMasAltaSharedPreferences(val application: Application,val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
     private val preferencesName = "Records"
     private val keyRecord = "Record" // Solo puede almacenar un Record
     private val keyTiempo = "Tiempo"

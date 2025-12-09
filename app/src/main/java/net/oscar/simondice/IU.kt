@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.ConstantesVarias
+import java.time.format.DateTimeFormatter
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -104,7 +106,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
 @Composable
 fun MostrarRecord(modeloVista: ModeloVista) {
     val record by modeloVista.record.collectAsState()
-    Text(text = "${record.marcaTiempo} -- ${record.puntuacionMasAlta}")
+    Text(text = "${record.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)} -- ${record.puntuacionMasAlta}")
 }
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
