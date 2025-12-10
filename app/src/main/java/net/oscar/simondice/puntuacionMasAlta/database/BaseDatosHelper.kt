@@ -25,8 +25,8 @@ class BaseDatosHelper(val context: Context) : SQLiteOpenHelper(context,DATABASE_
         private const val SQL_CREATE_ENTRIES =
             "CREATE TABLE ${DataBaseContract.TablaRecord.TABLE_NAME} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-                    "${DataBaseContract.TablaRecord.COLUMNA_RECORD} INTEGER," +
-                    "${DataBaseContract.TablaRecord.COLUMNA_FECHA} TEXT)"
+                    "${DataBaseContract.TablaRecord.COLUMNA_FECHA} TEXT," +
+                    "${DataBaseContract.TablaRecord.COLUMNA_RECORD} INTEGER);"
 
     }
 
