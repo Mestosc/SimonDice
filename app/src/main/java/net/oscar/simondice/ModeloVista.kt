@@ -10,6 +10,7 @@ import net.oscar.simondice.datos.Datos
 import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaSharedPreferences
+import net.oscar.simondice.puntuacionMasAlta.database.PuntuacionMasAltaSqlite
 import java.time.format.DateTimeFormatter
 import kotlin.reflect.KClass
 
@@ -20,7 +21,7 @@ class ModeloVista(application: Application) : ViewModel() {
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSharedPreferences(application)
+    val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSqlite(application.applicationContext)
     val record = MutableStateFlow(dataManagment.obtenerRecord())
 
     init {
