@@ -4,8 +4,8 @@ import android.util.Log
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
-import net.oscar.simondice.Datos.Colores
-import net.oscar.simondice.Datos.Datos
+import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.Datos
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before

@@ -1,4 +1,4 @@
-package net.oscar.simondice.Datos
+package net.oscar.simondice.datos
 
 import androidx.compose.ui.graphics.Color
 
