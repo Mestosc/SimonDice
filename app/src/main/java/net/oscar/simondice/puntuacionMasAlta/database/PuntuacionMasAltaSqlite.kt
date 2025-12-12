@@ -16,8 +16,6 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
         val dbReader = db.readableDatabase
         val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
 
-
-// How you want the results sorted in the resulting Cursor
         val sortOrder = "${DataBaseContract.TablaRecord.COLUMNA_RECORD} DESC"
 
         val cursor = dbReader.query(
@@ -27,12 +25,13 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             null,
             null,                   // don't group the rows
             null,                   // don't filter by row groups
-            sortOrder               // The sort order
+            sortOrder,
+            "1"
         )
         var puntuacion = ConstantesVarias.DEFAULT_SCORE
         var fecha = ConstantesVarias.DEFAULT_DATE_STRING
         with(cursor) {
-            if (moveToNext()) {
+            if (moveToFirst()) {
                 puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
                 fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
             }
