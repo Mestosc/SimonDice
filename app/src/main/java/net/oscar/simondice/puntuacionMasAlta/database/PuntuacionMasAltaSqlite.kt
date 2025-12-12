@@ -42,7 +42,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
         val values = ContentValues().apply {
-            put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.marcaTiempo.format(formatter).toString())
+            put(DataBaseContract.TablaRecord.COLUMNA_FECHA,puntuacionMasAlta.marcaTiempo.format(formatter).toString())
             put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.puntuacionMasAlta)
         }
         dbWriter.insert(DataBaseContract.TablaRecord.TABLE_NAME,null,values)
