@@ -33,7 +33,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             if (moveToFirst()) {
                 val puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
                 val fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
-                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha?: ConstantesVarias.DEFAULT_DATE_STRING,formatter))
+                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
             }
         }
         return PuntuacionMasAlta()
