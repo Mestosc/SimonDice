@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 
 
-class BaseDatosHelper(val context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION), AutoCloseable {
+class BaseDatosHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION), AutoCloseable {
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(SQL_CREATE_ENTRIES)
     }
