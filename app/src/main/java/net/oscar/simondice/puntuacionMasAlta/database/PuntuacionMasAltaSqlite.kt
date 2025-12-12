@@ -41,7 +41,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
                 }
             } else {
                 PuntuacionMasAlta()
-                }
+            }
             }
         }
 
