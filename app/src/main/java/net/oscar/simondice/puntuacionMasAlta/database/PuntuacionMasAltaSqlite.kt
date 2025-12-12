@@ -28,16 +28,16 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             sortOrder,
             "1"
         )
-        var puntuacion = ConstantesVarias.DEFAULT_SCORE
-        var fecha = ConstantesVarias.DEFAULT_DATE_STRING
+
         with(cursor) {
             if (moveToFirst()) {
-                puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
-                fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
+                val puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
+                val fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
+                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
             }
         }
-        cursor.close()
-        return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
+        return PuntuacionMasAlta(ConstantesVarias.DEFAULT_SCORE, LocalDateTime.parse(
+            ConstantesVarias.DEFAULT_DATE_STRING, ConstantesVarias.DEFAULT_FORMATTER))
     }
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
