@@ -29,8 +29,8 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             null,                   // don't filter by row groups
             sortOrder               // The sort order
         )
-        var puntuacion = 0
-        var fecha = "12/12/2012 12:12"
+        var puntuacion = ConstantesVarias.DEFAULT_SCORE
+        var fecha = ConstantesVarias.DEFAULT_DATE_STRING
         with(cursor) {
             if (moveToNext()) {
                 puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
