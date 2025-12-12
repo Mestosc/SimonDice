@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import net.oscar.simondice.datos.ConstantesVarias
 import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
@@ -11,6 +12,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
+    private val LOG_TAG = "SqliteLog"
     val db = BaseDatosHelper(context)
     override fun obtenerRecord(): PuntuacionMasAlta {
         val dbReader = db.readableDatabase
@@ -18,7 +20,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
 
         val sortOrder = "${DataBaseContract.TablaRecord.COLUMNA_RECORD} DESC"
 
-        val cursor = dbReader.query(
+        return dbReader.query(
             DataBaseContract.TablaRecord.TABLE_NAME,
             projection,
             null,
@@ -27,17 +29,21 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             null,                   // don't filter by row groups
             sortOrder,
             "1"
-        )
-
-        with(cursor) {
-            if (moveToFirst()) {
-                val puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
-                val fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
-                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
+        ).use { cursor ->
+            if (cursor.moveToFirst()) {
+                try {
+                    val puntuacion = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
+                    val fecha = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
+                    PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
+                } catch (e: Exception) {
+                    Log.d(LOG_TAG,"Problems with $e")
+                    PuntuacionMasAlta()
+                }
+            } else {
+                PuntuacionMasAlta()
+                }
             }
         }
-        return PuntuacionMasAlta()
-    }
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
