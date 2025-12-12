@@ -33,7 +33,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             if (moveToFirst()) {
                 val puntuacion = getInt(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
                 val fecha = getString(getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
-                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
+                return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha?: ConstantesVarias.DEFAULT_DATE_STRING,formatter))
             }
         }
         return PuntuacionMasAlta()
@@ -42,7 +42,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
         val values = ContentValues().apply {
-            put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.marcaTiempo.format(formatter))
+            put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.marcaTiempo.format(formatter).toString())
             put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.puntuacionMasAlta)
         }
         dbWriter.insert(DataBaseContract.TablaRecord.TABLE_NAME,null,values)
