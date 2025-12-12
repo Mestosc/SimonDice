@@ -6,4 +6,5 @@ import java.time.format.DateTimeFormatter
 /**
  * Representa la puntuacion más alta
  */
-data class PuntuacionMasAlta(var puntuacionMasAlta: Int = 0, var marcaTiempo: LocalDateTime = LocalDateTime.parse("03/12/2025 11", ConstantesVarias.DEFAULT_FORMATTER))
+data class PuntuacionMasAlta(var puntuacionMasAlta: Int = ConstantesVarias.DEFAULT_SCORE, var marcaTiempo: LocalDateTime = LocalDateTime.parse(
+    ConstantesVarias.DEFAULT_DATE_STRING, ConstantesVarias.DEFAULT_FORMATTER))
