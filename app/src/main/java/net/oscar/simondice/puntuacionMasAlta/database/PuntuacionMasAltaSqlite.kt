@@ -36,8 +36,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
                 return PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
             }
         }
-        return PuntuacionMasAlta(ConstantesVarias.DEFAULT_SCORE, LocalDateTime.parse(
-            ConstantesVarias.DEFAULT_DATE_STRING, ConstantesVarias.DEFAULT_FORMATTER))
+        return PuntuacionMasAlta()
     }
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
