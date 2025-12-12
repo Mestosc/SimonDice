@@ -9,7 +9,7 @@ import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
 import java.time.format.DateTimeFormatter
 
-class PuntuacionMasAltaSqlite(val context: Context,val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
+class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
     val db = BaseDatosHelper(context)
     override fun obtenerRecord(): PuntuacionMasAlta {
         TODO("Not yet implemented")
