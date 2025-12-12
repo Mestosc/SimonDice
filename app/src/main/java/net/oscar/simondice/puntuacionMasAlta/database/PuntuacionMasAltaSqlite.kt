@@ -12,14 +12,16 @@ import java.time.format.DateTimeFormatter
 class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
     val db = BaseDatosHelper(context)
     override fun obtenerRecord(): PuntuacionMasAlta {
-        TODO("Not yet implemented")
+        val dbReader = db.readableDatabase
+
     }
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
-        val values = ContentValues()
-        values.put(DataBaseContract.TablaRecord.COLUMNA_FECHA,puntuacionMasAlta.marcaTiempo.format(formatter))
-        values.put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.puntuacionMasAlta)
+        val values = ContentValues().apply {
+            put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.marcaTiempo.format(formatter))
+            put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.puntuacionMasAlta)
+        }
         dbWriter.insert(DataBaseContract.TablaRecord.TABLE_NAME,null,values)
     }
 
