@@ -7,11 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.oscar.simondice.datos.Colores
 import net.oscar.simondice.datos.Datos
-import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
-import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaSharedPreferences
-import net.oscar.simondice.puntuacionMasAlta.database.PuntuacionMasAltaSqlite
-import java.time.format.DateTimeFormatter
+import net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva.PuntuacionMasAltaSqlite
 import kotlin.reflect.KClass
 
 

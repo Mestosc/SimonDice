@@ -1,4 +1,4 @@
-package net.oscar.simondice.puntuacionMasAlta.database
+package net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva
 
 import android.provider.BaseColumns
 

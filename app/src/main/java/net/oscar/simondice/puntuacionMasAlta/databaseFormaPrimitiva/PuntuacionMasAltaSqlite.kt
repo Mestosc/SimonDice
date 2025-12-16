@@ -1,9 +1,7 @@
-package net.oscar.simondice.puntuacionMasAlta.database
+package net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import net.oscar.simondice.datos.ConstantesVarias
 import net.oscar.simondice.datos.PuntuacionMasAlta
