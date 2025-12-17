@@ -22,13 +22,13 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)  :
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         if (recordDAO is RecordDAO) {
-            recordDAO.anadirRecord(RecordSimon(1,puntuacionMasAlta.puntuacionMasAlta,puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)))
+            recordDAO.anadirRecord(RecordSimon(null,puntuacionMasAlta.puntuacionMasAlta,puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)))
         }
     }
 
     override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         if (recordDAO is RecordDAO) {
-            recordDAO.eliminarRecord(RecordSimon(1,puntuacionMasAlta.puntuacionMasAlta,puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)))
+            recordDAO.eliminarRecord(RecordSimon(null,puntuacionMasAlta.puntuacionMasAlta,puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)))
         }
     }
 
