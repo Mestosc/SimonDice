@@ -15,7 +15,7 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)  :
     override fun obtenerRecord(): PuntuacionMasAlta {
         if (recordDAO is RecordDAO) {
             val p = recordDAO.obtenerPuntuacionMasReciente()
-            return PuntuacionMasAlta(p.record ?: 0, LocalDateTime.parse(p.fecha, ConstantesVarias.DEFAULT_FORMATTER))
+            return PuntuacionMasAlta(p.record ?: 0, LocalDateTime.parse(p.fecha ?: ConstantesVarias.DEFAULT_DATE_STRING, ConstantesVarias.DEFAULT_FORMATTER))
         }
         return PuntuacionMasAlta()
     }
