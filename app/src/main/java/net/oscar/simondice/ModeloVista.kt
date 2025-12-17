@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import net.oscar.simondice.datos.Colores
 import net.oscar.simondice.datos.Datos
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
+import net.oscar.simondice.puntuacionMasAlta.database.ControllerAltoNivel
+import net.oscar.simondice.puntuacionMasAlta.database.DataBase
 import net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva.PuntuacionMasAltaSqlite
 import kotlin.reflect.KClass
 
@@ -18,7 +20,7 @@ class ModeloVista(application: Application) : ViewModel() {
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
-    val dataManagment: PuntuacionMasAltaHandler = PuntuacionMasAltaSqlite(application.applicationContext)
+    val dataManagment: PuntuacionMasAltaHandler = ControllerAltoNivel(application,DataBase::class)
     val record = MutableStateFlow(dataManagment.obtenerRecord())
 
     init {

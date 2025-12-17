@@ -1,10 +1,11 @@
 package net.oscar.simondice.puntuacionMasAlta.database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
-
+@Dao
 interface RecordDAO : InterfazDao {
     @Query("select * from recordSimon")
     fun getAll(): List<RecordSimon>
