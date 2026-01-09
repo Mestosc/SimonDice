@@ -3,10 +3,13 @@ package net.oscar.simondice
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import net.oscar.simondice.datos.Colores
 import net.oscar.simondice.datos.Datos
+import net.oscar.simondice.datos.PuntuacionMasAlta
 import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
 import net.oscar.simondice.puntuacionMasAlta.database.ControllerAltoNivel
 import net.oscar.simondice.puntuacionMasAlta.database.DataBase
@@ -21,16 +24,17 @@ class ModeloVista(application: Application) : ViewModel() {
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
     val dataManagment: PuntuacionMasAltaHandler = ControllerAltoNivel(application,DataBase::class)
-    val record = MutableStateFlow(dataManagment.obtenerRecord())
+    val record = MutableStateFlow<PuntuacionMasAlta>(PuntuacionMasAlta())
 
+    fun obtenerRecord() {
+        record.value = dataManagment.obtenerRecord()
+    }
     init {
         startState()
+        obtenerRecord()
     }
     fun guardarRecord() {
         dataManagment.anadirRecord(record.value)
-    }
-    fun obtenerRecord() {
-        record.value = dataManagment.obtenerRecord();
     }
     /**
      * Cambiar a un nuevo estado
