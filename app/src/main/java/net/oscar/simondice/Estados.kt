@@ -3,6 +3,7 @@ package net.oscar.simondice
 import android.util.Log
 import net.oscar.simondice.datos.Datos
 import net.oscar.simondice.datos.PuntuacionMasAlta
+import net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva.PuntuacionMasAltaSqlite
 import java.time.LocalDateTime
 
 sealed class Estados(val modeloVista: ModeloVista) {
@@ -15,6 +16,14 @@ sealed class Estados(val modeloVista: ModeloVista) {
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() {
             Log.d(tagLOG,"Inciando estado $this")
+            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
+                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
+                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
+                        Log.d(tagLOG,"Forma parte de los diez primeros")
+                    }
+                }
+            }
         }
 
         override fun onEnd() {
@@ -70,7 +79,13 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"${modeloVista.record.value}")
             if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
                 modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
+                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
+                        Log.d(tagLOG,"Forma parte de los diez primeros")
+                    }
+                }
                 modeloVista.guardarRecord()
+
             }
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }

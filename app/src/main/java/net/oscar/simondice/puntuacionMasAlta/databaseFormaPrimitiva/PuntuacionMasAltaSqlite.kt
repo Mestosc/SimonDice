@@ -42,6 +42,34 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             }
             }
         }
+    fun obtener10PrimerosRecord(): List<PuntuacionMasAlta> {
+        val dbReader = db.readableDatabase
+        val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
+
+        val sortOrder = "${DataBaseContract.TablaRecord.COLUMNA_RECORD} DESC"
+        var lista = mutableListOf<PuntuacionMasAlta>()
+        return dbReader.query(
+            DataBaseContract.TablaRecord.TABLE_NAME,
+            projection,
+            null,
+            null,
+            null,                   // don't group the rows
+            null,                   // don't filter by row groups
+            sortOrder,
+            "10"
+        ).use { cursor ->
+            while (cursor.moveToNext()) {
+                try {
+                    val puntuacion = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
+                    val fecha = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
+                    lista.add(PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter)))
+                } catch (e: Exception) {
+                    Log.d(LOG_TAG,"Problems with $e")
+                }
+            }
+            lista
+        }
+    }
     fun obtenerRecordPuntaucionIgualFechaMasAntigua(puntuacionMasAlta: PuntuacionMasAlta): PuntuacionMasAlta {
         val dbReader = db.readableDatabase
         val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
@@ -86,6 +114,16 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
 
     override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         TODO("Not yet implemented")
+    }
+
+    fun saberSiUnRecordYaEsta10Primeros(puntuacionMasAlta: PuntuacionMasAlta): Boolean {
+        var diezPrimeros = obtener10PrimerosRecord()
+        for (record in diezPrimeros) {
+            if (record.puntuacionMasAlta == puntuacionMasAlta.puntuacionMasAlta && record.marcaTiempo.equals(puntuacionMasAlta.marcaTiempo)) {
+                return true
+            }
+        }
+        return false
     }
 
     /**
