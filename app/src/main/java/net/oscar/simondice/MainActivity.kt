@@ -14,13 +14,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import net.oscar.simondice.ui.theme.SimonDiceTheme
 
 class MainActivity : ComponentActivity() {
+    lateinit var modeloVista: ModeloVista
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val modeloVista = ModeloVista()
+        modeloVista = ModeloVista(application)
         setContent {
             IU(modeloVista)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        modeloVista.dataManagment.close()
     }
 }
 
@@ -35,8 +40,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    val modeloVista = ModeloVista()
     SimonDiceTheme {
-        IU(modeloVista)
+
     }
 }
