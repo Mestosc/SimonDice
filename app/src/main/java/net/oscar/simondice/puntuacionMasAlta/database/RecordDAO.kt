@@ -8,14 +8,17 @@ import androidx.room.Query
 @Dao
 interface RecordDAO : InterfazDao {
     @Query("select * from recordSimon")
-    fun getAll(): List<RecordSimon>
+    suspend fun getAll(): List<RecordSimon>
 
-    @Query("select * from recordSimon limit 1")
-    fun obtenerPuntuacionMasReciente(): RecordSimon
+    @Query("select * from recordSimon order by record DESC limit 1")
+    suspend fun obtenerPuntuacionMasReciente(): RecordSimon?
 
     @Insert
-    fun anadirRecord(record: RecordSimon)
+    suspend fun anadirRecord(record: RecordSimon)
 
     @Delete
-    fun eliminarRecord(record: RecordSimon)
+    suspend fun eliminarRecord(record: RecordSimon)
+
+    @Query("DELETE FROM recordSimon WHERE record = :puntos AND fecha = :fecha")
+    suspend fun eliminarRecordPorDatos(puntos: Int, fecha: String)
 }

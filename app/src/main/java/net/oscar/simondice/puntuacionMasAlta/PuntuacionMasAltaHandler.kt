@@ -7,7 +7,7 @@ import net.oscar.simondice.datos.PuntuacionMasAlta
  */
 interface PuntuacionMasAltaHandler : AutoCloseable {
 
-    fun obtenerRecord(): PuntuacionMasAlta;
-    fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta);
-    fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta);
+    suspend fun obtenerRecord(): PuntuacionMasAlta;
+    suspend fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta);
+    suspend fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta);
 }

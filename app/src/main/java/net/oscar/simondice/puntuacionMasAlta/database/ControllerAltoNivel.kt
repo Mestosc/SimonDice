@@ -72,27 +72,29 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)
      * println("Record: ${misPuntuaciones.puntuacionMasAlta} - ${misPuntuaciones.marcaTiempo}")
      * ```
      */
-    override fun obtenerRecord(): PuntuacionMasAlta {
-        // ✅ Verificar que el DAO sea del tipo correcto (RecordDAO)
-        // Esto garantiza que tenemos acceso a los métodos específicos del DAO
-        if (recordDAO is RecordDAO) {
-            // 📊 Consultar la puntuación más reciente desde la base de datos
-            val p = recordDAO.obtenerPuntuacionMasReciente()
+    override suspend fun obtenerRecord(): PuntuacionMasAlta {
+        try {
+            // ✅ Verificar que el DAO sea del tipo correcto (RecordDAO)
+            if (recordDAO is RecordDAO) {
+                // 📊 Consultar la puntuación más reciente desde la base de datos
+                val p = recordDAO.obtenerPuntuacionMasReciente() ?: return PuntuacionMasAlta()
 
-            // 🔄 Convertir de modelo de BD (RecordSimon) a modelo de negocio (PuntuacionMasAlta)
-            return PuntuacionMasAlta(
-                // Puntuación: Si es null, usar 0 (Elvis operator ?:)
-                puntuacionMasAlta = p.record ?: 0,
-                // Fecha: Parsear de String a LocalDateTime
-                // Si es null, usar fecha por defecto de constantes
-                marcaTiempo = LocalDateTime.parse(
-                    p.fecha ?: ConstantesVarias.DEFAULT_DATE_STRING,
-                    ConstantesVarias.DEFAULT_FORMATTER
+                // Si p es null, retornamos un objeto PuntuacionMasAlta por defecto
+
+                // 🔄 Convertir de modelo de BD a modelo de negocio
+                return PuntuacionMasAlta(
+                    puntuacionMasAlta = p.record ?: 0,
+                    marcaTiempo = LocalDateTime.parse(
+                        p.fecha ?: ConstantesVarias.DEFAULT_DATE_STRING,
+                        ConstantesVarias.DEFAULT_FORMATTER
+                    )
                 )
-            )
+            }
+        } catch (e: Exception) {
+            // 📝 Registrar el error para facilitar el debugging
+            Log.e("ControllerDBRoom", "Error al obtener el récord: ${e.message}", e)
         }
-        // ❌ Si el DAO no es RecordDAO, retornar objeto vacío
-        // Esto evita NullPointerException
+        // ❌ Retornar objeto vacío si algo falla o el DAO no es correcto
         return PuntuacionMasAlta()
     }
 
@@ -132,7 +134,7 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)
      * controller.anadirRecord(nuevaPuntuacion)
      * ```
      */
-    override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         // ✅ Verificar que el DAO sea del tipo correcto
         if (recordDAO is RecordDAO) {
             // 📝 Crear nuevo registro convertiendo del modelo de negocio
@@ -184,20 +186,13 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)
      * controller.eliminarRecord(puntuacionAEliminar)
      * ```
      */
-    override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         // ✅ Verificar que el DAO sea del tipo correcto
         if (recordDAO is RecordDAO) {
-            // 🗑️ Crear registro con datos a eliminar y ejecutar DELETE
-            recordDAO.eliminarRecord(
-                RecordSimon(
-                    // uid = null: Aquí debería ser el ID real del registro a eliminar
-                    // ⚠️ NOTA: En la implementación actual, uid=null puede no eliminar correctamente
-                    uid = null,
-                    // Valor de puntuación
-                    record = puntuacionMasAlta.puntuacionMasAlta,
-                    // Convertir LocalDateTime a String
-                    fecha = puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)
-                )
+            // 🗑️ Ejecutar DELETE basado en los datos de la puntuación
+            recordDAO.eliminarRecordPorDatos(
+                puntuacionMasAlta.puntuacionMasAlta,
+                puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)
             )
         }
     }

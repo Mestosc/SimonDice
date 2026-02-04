@@ -30,7 +30,7 @@ abstract class ControllerBajoNivel<T: RoomDatabase>(context: Context, room: KCla
      * @property db La instancia única de la base de datos inicializada
      */
     val db = Room.databaseBuilder(context, room.java, "database-name")
-        .allowMainThreadQueries()  // ⚠️ Solo para desarrollo
+        .fallbackToDestructiveMigration() // Añadido para evitar fallos si cambia el esquema
         .build()
 
     /**

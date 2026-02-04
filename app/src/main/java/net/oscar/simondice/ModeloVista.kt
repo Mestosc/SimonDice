@@ -27,14 +27,18 @@ class ModeloVista(application: Application) : ViewModel() {
     val record = MutableStateFlow<PuntuacionMasAlta>(PuntuacionMasAlta())
 
     fun obtenerRecord() {
-        record.value = dataManagment.obtenerRecord()
+        viewModelScope.launch {
+            record.value = dataManagment.obtenerRecord()
+        }
     }
     init {
         startState()
         obtenerRecord()
     }
     fun guardarRecord() {
-        dataManagment.anadirRecord(record.value)
+        viewModelScope.launch {
+            dataManagment.anadirRecord(record.value)
+        }
     }
     /**
      * Cambiar a un nuevo estado
