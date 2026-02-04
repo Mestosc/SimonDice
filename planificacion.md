@@ -14,7 +14,7 @@ Cada tarea debera tener el siguiente formato: TAREA_HACER | Tiempo_Estimado: XXX
 
 ##### Ejemplo de tarea:
 
-Implementar la funcionalidad de guardar un nombre de usuario | Tiempo_Estimado: 20 dias | AspectoDesarrollo: Almacenaje de datos | Prioridad: A | Descripcion: Implementar que se pueda guardar un usuario.
+Implementar la funcionalidad de guardar un nombre de usuario | Tiempo_Estimado: 20 dias | AspectoDesarrollo: Almacenaje de datos | Prioridad: A | Descripcion: Implementar que se pueda guardar un usuario de tal forma que la interfaz grafica de usuario pueda acceder a el para mostrarlo con la mayor facilidad.
 
 ### Otras instrucciones
 - Usa el comando gh, (para usar github-cli, si no esta instalado en el sistema solicita/sugiere la instalacion, antes de hacer algo y si no se instala no sigas con llevar a cabo las tareas, si no estaba instalado y se acaba de instalar haz que el usuario deba hacer login) debiendo saber previamente el remoto o el nombre del repositorio o la informacion que precises, debes solicitarla u obtenerla por tu cuenta de manera coherente
