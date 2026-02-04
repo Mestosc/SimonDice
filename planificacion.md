@@ -13,4 +13,4 @@ Cada tarea debera tener el siguiente formato: TAREA_HACER | Tiempo_Estimado: XXX
 
 ### Ejemplo de tarea:
 
-Implementar la funcionalidad de guardar un nombre de usuario | Tiempo_Estimado: 20 dias | AspectoDesarrollo: Almacenaje de datos | Prioridad: A | Descripcion: Implementar que se pueda guardar un usuario
+Implementar la funcionalidad de guardar un nombre de usuario | Tiempo_Estimado: 20 dias | AspectoDesarrollo: Almacenaje de datos | Prioridad: A | Descripcion: Implementar que se pueda guardar un usuario.
