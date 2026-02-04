@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +16,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.oscar.simondice.datos.Colores
 import net.oscar.simondice.datos.ConstantesVarias
@@ -106,7 +110,7 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
 @Composable
 fun MostrarRecord(modeloVista: ModeloVista) {
     val record by modeloVista.record.collectAsState()
-    Text(text = "${record.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)} -- ${record.puntuacionMasAlta}")
+    Text(text = "${record.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)} -- ${record.puntuacionMasAlta} hecho por ${record.nombre}")
 }
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
@@ -124,8 +128,8 @@ fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     Button(onClick = { // Se intento implementar la logica de sonido buscada pero no se logro
         mediaPlayer.start()
         modeloVista.botonIluminado.value = color
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch { // Esta corrutina es para que cuando pulse el boton
-            kotlinx.coroutines.delay(300)
+        CoroutineScope(Dispatchers.Main).launch { // Esta corrutina es para que cuando pulse el boton
+            delay(300)
             modeloVista.botonIluminado.value = null
         }
 

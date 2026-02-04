@@ -145,7 +145,8 @@ class ControllerAltoNivel<T: RoomDatabase>(context: Context, room: KClass<T>)
                     // Valor de puntuación del modelo de negocio
                     record = puntuacionMasAlta.puntuacionMasAlta,
                     // Convertir LocalDateTime a String con formato estándar
-                    fecha = puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)
+                    fecha = puntuacionMasAlta.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER),
+                    nombre = puntuacionMasAlta.nombre
                 )
             )
         }

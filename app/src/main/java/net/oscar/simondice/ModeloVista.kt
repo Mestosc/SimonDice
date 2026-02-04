@@ -20,6 +20,7 @@ import kotlin.reflect.KClass
 class ModeloVista(application: Application) : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
+    val nombreJugador = MutableStateFlow("") // Esto lo coloco para permitir a futuro un cuadro de texto en la interfaz donde meterlo todo
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
