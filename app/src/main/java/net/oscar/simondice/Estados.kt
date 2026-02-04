@@ -16,14 +16,6 @@ sealed class Estados(val modeloVista: ModeloVista) {
     class INICIO(modeloVista: ModeloVista) : Estados(modeloVista) {
         override fun onEnter() {
             Log.d(tagLOG,"Inciando estado $this")
-            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
-                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
-                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
-                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
-                        Log.d(tagLOG,"Forma parte de los diez primeros")
-                    }
-                }
-            }
         }
 
         override fun onEnd() {
@@ -63,6 +55,14 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = true
             startActivo = false
+            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
+                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
+                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
+                        Log.d(tagLOG,"Forma parte de los diez primeros")
+                    }
+                }
+            }
         }
         fun iniciarRonda(numRonda: Int) {
             modeloVista.fase.value = numRonda
