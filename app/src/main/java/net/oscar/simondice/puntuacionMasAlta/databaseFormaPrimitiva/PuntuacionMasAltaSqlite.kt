@@ -45,6 +45,9 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
 
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
+        if (contarElementos()>10) {
+            return
+        }
         val values = ContentValues().apply {
             put(DataBaseContract.TablaRecord.COLUMNA_FECHA,puntuacionMasAlta.marcaTiempo.format(formatter))
             put(DataBaseContract.TablaRecord.COLUMNA_RECORD,puntuacionMasAlta.puntuacionMasAlta)
@@ -54,6 +57,28 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
 
     override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         TODO("Not yet implemented")
+    }
+
+    /**
+     * Cuenta el número de elementos que hay actualmente en la base de datos
+     */
+    fun contarElementos(): Int {
+        val dbReader = db.readableDatabase
+        val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
+
+        val sortOrder = "${DataBaseContract.TablaRecord.COLUMNA_RECORD} DESC"
+
+        return dbReader.query(
+            DataBaseContract.TablaRecord.TABLE_NAME,
+            projection,
+            null,
+            null,
+            null,                   // don't group the rows
+            null,                   // don't filter by row groups
+            sortOrder,
+        ).use { cursor ->
+            cursor.count
+        }
     }
 
     override fun close() {
