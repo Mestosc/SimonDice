@@ -69,7 +69,7 @@ sealed class Estados(val modeloVista: ModeloVista) {
             startActivo = true
             Log.d(tagLOG,"${modeloVista.record.value}")
             if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
-                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now(),modeloVista.nombreJugador.value)
                 modeloVista.guardarRecord()
             }
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
