@@ -1,6 +1,10 @@
 package net.oscar.simondice
 
 import android.util.Log
+import net.oscar.simondice.datos.Datos
+import net.oscar.simondice.datos.PuntuacionMasAlta
+import net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva.PuntuacionMasAltaSqlite
+import java.time.LocalDateTime
 
 sealed class Estados(val modeloVista: ModeloVista) {
     var tagLOG = "StateProgram"
@@ -51,6 +55,14 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = true
             startActivo = false
+            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
+                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
+                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
+                        Log.d(tagLOG,"Forma parte de los diez primeros")
+                    }
+                }
+            }
         }
         fun iniciarRonda(numRonda: Int) {
             modeloVista.fase.value = numRonda
@@ -64,6 +76,17 @@ sealed class Estados(val modeloVista: ModeloVista) {
             Log.d(tagLOG,"Entrando en $this")
             botonActivo = false
             startActivo = true
+            Log.d(tagLOG,"${modeloVista.record.value}")
+            if (modeloVista.puntuacion.value>modeloVista.record.value.puntuacionMasAlta) {
+                modeloVista.record.value = PuntuacionMasAlta(modeloVista.puntuacion.value,LocalDateTime.now())
+                if (modeloVista.dataManagment is PuntuacionMasAltaSqlite) {
+                    if (modeloVista.dataManagment.saberSiUnRecordYaEsta10Primeros(modeloVista.record.value)) {
+                        Log.d(tagLOG,"Forma parte de los diez primeros")
+                    }
+                }
+                modeloVista.guardarRecord()
+
+            }
             modeloVista.puntuacion.value = 0 // Haciendo que si fallas y acaba el juego se reinicie la puntuacion
         }
         override fun onEnd() {

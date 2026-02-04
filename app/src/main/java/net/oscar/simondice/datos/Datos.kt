@@ -1,11 +1,10 @@
-package net.oscar.simondice
+package net.oscar.simondice.datos
 
 import androidx.compose.ui.graphics.Color
 
 object Datos {
     val secuenciaAdivinar = listOf(Colores.ROJO,Colores.AZUL,Colores.AMARILLO,Colores.VERDE)
     val secuenciaAdivinando = mutableListOf<Colores>()
-
 }
 
 /**

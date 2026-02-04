@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.ConstantesVarias
+import java.time.format.DateTimeFormatter
 
 /**
 Funcion principal de interfaz recibe el [modeloVista]
@@ -25,14 +28,15 @@ fun IU(modeloVista: ModeloVista) {
     Surface(modifier = Modifier.padding(start = 10.dp, top = 30.dp)) {
         Column {
             Row {
-                BotonesNormales(modeloVista,Colores.ROJO)
-                BotonesNormales(modeloVista,Colores.VERDE)
+                BotonesNormales(modeloVista, Colores.ROJO)
+                BotonesNormales(modeloVista, Colores.VERDE)
             }
             Row {
-                BotonesNormales(modeloVista,Colores.AMARILLO)
-                BotonesNormales(modeloVista,Colores.AZUL)
+                BotonesNormales(modeloVista, Colores.AMARILLO)
+                BotonesNormales(modeloVista, Colores.AZUL)
             }
-            CrearBotonStart(modeloVista,Colores.START)
+            CrearBotonStart(modeloVista, Colores.START)
+            MostrarRecord(modeloVista)
             MostrarEstado(modeloVista)
             MostrarPuntuacion(modeloVista)
             MostrarTextoFinal(modeloVista)
@@ -99,6 +103,11 @@ fun obtenerMediaPlayer(context: Context,enumColores: Colores): MediaPlayer? {
         Colores.START -> null
     }
     }
+@Composable
+fun MostrarRecord(modeloVista: ModeloVista) {
+    val record by modeloVista.record.collectAsState()
+    Text(text = "${record.marcaTiempo.format(ConstantesVarias.DEFAULT_FORMATTER)} -- ${record.puntuacionMasAlta}")
+}
 @Composable
 fun BotonesNormales(modeloVista: ModeloVista,color: Colores) {
     val context = LocalContext.current
