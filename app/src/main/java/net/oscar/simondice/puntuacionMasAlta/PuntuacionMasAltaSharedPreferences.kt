@@ -13,12 +13,12 @@ class PuntuacionMasAltaSharedPreferences(val application: Application,val format
     private val preferencesName = "Records"
     private val keyRecord = "Record" // Solo puede almacenar un Record
     private val keyTiempo = "Tiempo"
-    override fun obtenerRecord(): PuntuacionMasAlta {
+    override suspend fun obtenerRecord(): PuntuacionMasAlta {
         val preferences = application.getSharedPreferences(preferencesName,Context.MODE_PRIVATE)
         return PuntuacionMasAlta(puntuacionMasAlta = preferences.getInt(keyRecord,0), marcaTiempo = LocalDateTime.parse(preferences.getString(keyTiempo,"03/12/2025 11"),formatter))
     }
 
-    override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val preferences = application.getSharedPreferences(preferencesName,Context.MODE_PRIVATE)
         val formateada = puntuacionMasAlta.marcaTiempo.format(formatter)
         preferences?.edit {
@@ -27,7 +27,7 @@ class PuntuacionMasAltaSharedPreferences(val application: Application,val format
         }
     }
 
-    override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val preferences = application.getSharedPreferences(preferencesName,Context.MODE_PRIVATE)
         preferences?.edit { remove(keyRecord) }
     }
