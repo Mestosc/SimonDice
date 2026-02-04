@@ -1,4 +1,4 @@
-# Planificacion para implementacion de funcionalidades y o tareas
+### Planificacion para implementacion de funcionalidades y o tareas
 
 Aqui se exponen una serie de normas para la planificacion:
 
@@ -8,9 +8,9 @@ Aqui se exponen una serie de normas para la planificacion:
 - Cada tarea debera tener una prioridad basada en letras, siendo A prioridad absoluta, B alta, C media y D baja y E casi irrelevante.
 - Debera indicarse a que aspecto del desarrollo de la aplicacion puede estar ligada cada tarea por ejemplo si implica un cambio en la interfaz decir que es de diseño de la interfaz
 
-## Formato de las tareas
+#### Formato de las tareas
 Cada tarea debera tener el siguiente formato: TAREA_HACER | Tiempo_Estimado: XXX Horas/dias | Prioridad: X | AspectoDesarrollo: XXX | Descripcion exaustiva
 
-### Ejemplo de tarea:
+##### Ejemplo de tarea:
 
 Implementar la funcionalidad de guardar un nombre de usuario | Tiempo_Estimado: 20 dias | AspectoDesarrollo: Almacenaje de datos | Prioridad: A | Descripcion: Implementar que se pueda guardar un usuario.
