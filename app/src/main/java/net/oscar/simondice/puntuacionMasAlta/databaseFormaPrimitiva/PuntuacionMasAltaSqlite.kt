@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter = ConstantesVarias.DEFAULT_FORMATTER) : PuntuacionMasAltaHandler {
     private val LOG_TAG = "SqliteLog"
     val db = BaseDatosHelper(context)
-    override fun obtenerRecord(): PuntuacionMasAlta {
+    override suspend fun obtenerRecord(): PuntuacionMasAlta {
         val dbReader = db.readableDatabase
         val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
 
@@ -43,7 +43,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             }
         }
 
-    override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
         val values = ContentValues().apply {
             put(DataBaseContract.TablaRecord.COLUMNA_FECHA,puntuacionMasAlta.marcaTiempo.format(formatter))
@@ -52,7 +52,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
         dbWriter.insert(DataBaseContract.TablaRecord.TABLE_NAME,null,values)
     }
 
-    override fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
+    override suspend fun eliminarRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         TODO("Not yet implemented")
     }
 
