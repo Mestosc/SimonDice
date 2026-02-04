@@ -1,24 +1,46 @@
 package net.oscar.simondice
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.Datos
+import net.oscar.simondice.datos.PuntuacionMasAlta
+import net.oscar.simondice.puntuacionMasAlta.PuntuacionMasAltaHandler
+import net.oscar.simondice.puntuacionMasAlta.database.ControllerAltoNivel
+import net.oscar.simondice.puntuacionMasAlta.database.DataBase
+import net.oscar.simondice.puntuacionMasAlta.databaseFormaPrimitiva.PuntuacionMasAltaSqlite
 import kotlin.reflect.KClass
 
-class ModeloVista : ViewModel() {
+
+class ModeloVista(application: Application) : ViewModel() {
     var estadoActual: MutableStateFlow<Estados> = MutableStateFlow(Estados.INICIO(this))
     var puntuacion = MutableStateFlow(0)
+    val nombreJugador = MutableStateFlow("Jugador 1") // Esto lo coloco para permitir a futuro un cuadro de texto en la interfaz donde meterlo to\do y permite tener un nombre de Jugador generico que se metera en el registro sino la base de datos usa Jugador1 por defecto
     var fase = MutableStateFlow(0)
     var botonIluminado = MutableStateFlow<Colores?>(null)
     private val tagLOG = "ModeloDebug"
+    val dataManagment: PuntuacionMasAltaHandler = ControllerAltoNivel(application,DataBase::class)
+    val record = MutableStateFlow<PuntuacionMasAlta>(PuntuacionMasAlta())
 
+    fun obtenerRecord() {
+        viewModelScope.launch {
+            record.value = dataManagment.obtenerRecord()
+        }
+    }
     init {
         startState()
+        obtenerRecord()
     }
-
+    fun guardarRecord() {
+        viewModelScope.launch {
+            dataManagment.anadirRecord(record.value)
+        }
+    }
     /**
      * Cambiar a un nuevo estado
      * @param newState Referencia al nuevo estado al que quiero ir

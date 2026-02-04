@@ -1,10 +1,11 @@
 package net.oscar.simondice
 
 import android.util.Log
-import androidx.compose.ui.graphics.Color
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
+import net.oscar.simondice.datos.Colores
+import net.oscar.simondice.datos.Datos
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -139,7 +140,8 @@ class ModeloVistaTest {
     @Test
     fun `pasarRonda devuelve true si las listas son identicas`() {
         //Datos.secuenciaAdivinar.apply { clear(); add(Colores.AZUL); add(Colores.ROJO) }
-        Datos.secuenciaAdivinando.apply { clear(); add(Colores.ROJO) ; add(Colores.AZUL); add(Colores.AMARILLO) ; add(Colores.VERDE) }
+        Datos.secuenciaAdivinando.apply { clear(); add(Colores.ROJO) ; add(Colores.AZUL); add(
+            Colores.AMARILLO) ; add(Colores.VERDE) }
 
         assertTrue(viewModel.pasarRonda())
     }
