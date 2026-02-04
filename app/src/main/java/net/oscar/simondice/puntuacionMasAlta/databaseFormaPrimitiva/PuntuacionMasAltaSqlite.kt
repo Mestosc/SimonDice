@@ -42,7 +42,32 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
             }
             }
         }
+    fun obtenerRecordPuntaucionIgualFechaMasAntigua(puntuacionMasAlta: PuntuacionMasAlta): PuntuacionMasAlta {
+        val dbReader = db.readableDatabase
+        val projection = arrayOf(DataBaseContract.TablaRecord.COLUMNA_RECORD, DataBaseContract.TablaRecord.COLUMNA_FECHA)
 
+        val sortOrder = "${DataBaseContract.TablaRecord.COLUMNA_RECORD} DESC"
+        var puntuacionAlta: PuntuacionMasAlta = puntuacionMasAlta
+        dbReader.query(
+                DataBaseContract.TablaRecord.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                sortOrder,
+            ).use { cursor ->
+                while (cursor.moveToNext()) {
+                    val puntuacion = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
+                    val fecha = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
+                    if (puntuacion == puntuacionMasAlta.puntuacionMasAlta && fecha.equals(puntuacionMasAlta.marcaTiempo.toString())) {
+                        puntuacionAlta = PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
+                        break
+                    }
+                }
+            }
+        return puntuacionAlta;
+        }
     override fun anadirRecord(puntuacionMasAlta: PuntuacionMasAlta) {
         val dbWriter = db.writableDatabase
         if (contarElementos()>10) {
