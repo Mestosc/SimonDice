@@ -2,7 +2,7 @@
 
 Aqui se exponen una serie de normas para la planificacion:
 
-- La planificacion debera ser volcada a un archivo en markdown llamado `planificacion-COSAIMPLEMENTAR/TAREA.md` donde COSAIMPLEMENTAR/TAREA es la funcionalidad o tarea a implementar o llevar a cabo y que debera estar en una carpeta `plannings`
+- La planificacion debera ser volcada a un archivo en markdown llamado `planificacion-COSAIMPLEMENTAROTAREA.md` donde COSAIMPLEMENTAROTAREA es la funcionalidad o tarea a implementar o llevar a cabo y que debera estar en una carpeta `plannings`
 - Cada tarea debera tener una descripcion clara de lo que se quiere llevar a cabo
 - Cada tarea debera tener una estimacion de tiempo, en horas o en dias laborables de lo que se tardara en completar, y explicar los posibles problemas que puede llegar a haber en la implementacion
 - Cada tarea debera tener una prioridad basada en letras, siendo A prioridad absoluta, B alta, C media y D baja y E casi irrelevante.
