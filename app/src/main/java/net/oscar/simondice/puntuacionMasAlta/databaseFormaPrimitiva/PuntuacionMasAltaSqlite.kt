@@ -60,7 +60,7 @@ class PuntuacionMasAltaSqlite(context: Context, val formatter: DateTimeFormatter
                 while (cursor.moveToNext()) {
                     val puntuacion = cursor.getInt(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_RECORD))
                     val fecha = cursor.getString(cursor.getColumnIndexOrThrow(DataBaseContract.TablaRecord.COLUMNA_FECHA))
-                    if (puntuacion == puntuacionMasAlta.puntuacionMasAlta && fecha.equals(puntuacionMasAlta.marcaTiempo.toString())) {
+                    if (puntuacion == puntuacionMasAlta.puntuacionMasAlta && (puntuacionMasAlta.marcaTiempo.dayOfMonth < LocalDateTime.parse(fecha,formatter).dayOfMonth || puntuacionMasAlta.marcaTiempo.monthValue < LocalDateTime.parse(fecha,formatter).monthValue)) {
                         puntuacionAlta = PuntuacionMasAlta(puntuacion, LocalDateTime.parse(fecha,formatter))
                         break
                     }
